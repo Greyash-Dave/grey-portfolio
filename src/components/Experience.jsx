@@ -187,7 +187,7 @@ const Experience = () => {
         <p>EXPERIENCE</p>
         <div className="video-container">
           {/* <ScrollVideo 
-            videoSrc="/public/assets/coding-stock-footage2.mp4" 
+            videoSrc="../assets/coding-stock-footage2.mp4" 
             className="absolute inset-0 z-[-1]" 
           /> */}
         </div>

@@ -3,62 +3,85 @@ import Lenis from '@studio-freight/lenis';
 import WorkDescModal from "./WorkDescModal";
 import WorkDesc from "./WorkDesc";
 
-// Project details with additional modal information
+// Import all images
+import PokemonGameImg from '../assets/pokemon-game.png';
+import PbgImg from '../assets/pbg.png';
+import CitizenConstitutionImg from '../assets/c-and-c.png';
+import Cac1Img from '../assets/cac1.png';
+import Cac2Img from '../assets/cac2.png';
+import SpaceYImg from '../assets/space-y.png';
+import SyImg from '../assets/sy.png';
+import PanimarImg from '../assets/panimalar.png';
+import PhImg from '../assets/ph.png';
+import FlappyImg from '../assets/flappy.jpeg';
+import AImg from '../assets/a.png';
+import UpcomingImg from '../assets/upcoming.jpg';
+import Oph1Img from '../assets/oph_1.png';
+import Oph2Img from '../assets/oph_2.png';
+import Oph3Img from '../assets/oph_3.png';
+import OscImg from '../assets/osc.png';
+import OpenpediaImg from '../assets/openpedia.png';
+import YesistImg from '../assets/yesist.png';
+import Y12_1Img from '../assets/y12_1.png';
+import Y12_2Img from '../assets/y12_2.png';
+import OpenTurfLogoImg from '../assets/openturf-logo.png';
+import Sei1Img from '../assets/sei_1.png';
+import Sei2Img from '../assets/sei_2.png';
+
+// Project details with imported images
 const projectDetails = [
   {
     title: "Pokemon Battle Game",
     description: "Interactive web-based Pokémon battle simulator using PokeAPI. Developed using technologies like React.js Node.js and PostgreSQL.",
-    src: "/public/assets/pokemon-game.png",
+    src: PokemonGameImg,
     timeline: "Jul 2024 - Sep 2024",
     youtubeLink: "https://www.youtube.com/watch?v=v021D_MnzvY",
-    images: ['/public/assets/pokemon-game.png', '/public/assets/pbg.png']
+    images: [PokemonGameImg, PbgImg]
   },
   { 
     title: 'Citizen & Constitution', 
     description: "Gamified learning platform featuring a Renpy-based visual novel game and MVP Gamified Learning Web Platform",
-    src: '/public/assets/c-and-c.png',
+    src: CitizenConstitutionImg,
     timeline: 'Sep 2024 - Sep 2024',
     liveLink: 'https://grey-citizen-and-constitution.vercel.app',
-    // demoLink: 'https://demo.com/username/citizen-constitution',
     youtubeLink: 'https://studio.youtube.com/watch?v=OO9dnwtZrN4',
-    images: ['/public/assets/cac_1.png', '/public/assets/cac_2.png']
+    images: [CitizenConstitutionImg, Cac1Img, Cac2Img]
   },
   { 
     title: 'Space Y', 
     description: "Recreation of SpaceX's Homepage using React.js.",
-    src: '/public/assets/space-y.png',
+    src: SpaceYImg,
     timeline: 'Aug 2024 - Aug 2024',
     liveLink: 'https://space-y-delta.vercel.app',
     demoLink: 'https://www.linkedin.com/posts/gresham-dave_frontenddevelopment-spacex-webdevelopment-activity-7233333524634746880-KlJu?utm_source=share&utm_medium=member_desktop',
     youtubeLink: 'https://studio.youtube.com/watch?v=EqA1cD5CtJM',
-    images: ['/public/assets/space-y.png', '/public/assets/sy.png']
+    images: [SpaceYImg, SyImg]
   },
   { 
     title: 'PEC Homepage', 
     description: "PEC Homepage redesign with features like announcements and event updates using React.js.",
-    src: '/public/assets/panimalar.png',
+    src: PanimarImg,
     timeline: 'Aug 2024 - Aug 2024',
     liveLink: 'https://pec-home-page.vercel.app',
     demoLink: 'https://www.linkedin.com/posts/gresham-dave_webdevelopment-reactjs-css-activity-7227708134973157376-zOV1?utm_source=share&utm_medium=member_desktop',
     youtubeLink: 'https://youtube.com/watch?v=khY8_HCry00/edit',
-    images: ['/public/assets/panimalar.png', '/public/assets/ph.png']
+    images: [PanimarImg, PhImg]
   },
   { 
     title: 'ACE', 
     description: "Gesture-based interactive gameplay system using Python, OpenCV, and Unity, featuring a Flappy Bird integration.",
-    src: '/public/assets/flappy.jpeg',
+    src: FlappyImg,
     timeline: 'Apr 2023 - Apr 2023',
-    // liveLink: 'https://ace-game.com',
     demoLink: 'https://www.linkedin.com/posts/gresham-dave_computervision-flappybird-gestureinput-activity-7225515334332506112-d_Gy?utm_source=share&utm_medium=member_desktop',
     youtubeLink: 'https://studio.youtube.com/watch?v=EIRNBOqlXN0',
-    images: ['/public/assets/flappy.jpeg', '/public/assets/a.png']
+    images: [FlappyImg, AImg]
   },
   { 
     title: '...', 
     description: '...upcoming',
-    src: '/public/assets/upcoming.jpg',
+    src: UpcomingImg,
     timeline: '...',
-    images: ['/public/assets/upcoming.jpg']
+    images: [UpcomingImg]
   }
 ];
 
@@ -67,45 +90,35 @@ const experienceDetails = [
   { 
     title: 'Other Participated Hackathons',
     description: 'Participated in multiple hackathons, showcasing interest in problem-solving skills and innovative thinking.',
-    src: '/public/assets/oph_1.png',
+    src: Oph1Img,
     timeline: '2022 - 2024',
-    // liveLink: null,
-    // demoLink: null,
-    // youtubeLink: null,
-    images: ['/public/assets/oph_1.png', '/public/assets/oph_2.png', '/public/assets/oph_3.png']
+    images: [Oph1Img, Oph2Img, Oph3Img]
   },
   { 
     title: 'Open Source Contributor', 
     description: 'Contributed to the Openpedia project, focusing on enhancing functionality and user experience.',
-    src: '/public/assets/osc.png', 
+    src: OscImg, 
     timeline: 'Aug 2024 - Aug 2024',
     liveLink: 'https://github.com/Sriparno08/Openpedia',
-    // demoLink: null,
-    // youtubeLink: null,
-    images: ['/public/assets/openpedia.png', '/public/assets/osc.png']
+    images: [OpenpediaImg, OscImg]
   },
   { 
     title: 'Yesist12 Finalist', 
     description: 'Recognized as a finalist in the Yesist12 innovation competition, demonstrating technical excellence.',
-    src: '/public/assets/yesist.png', 
+    src: YesistImg, 
     timeline: 'Sep 2023',
     demoLink: 'https://www.linkedin.com/posts/gresham-dave_yesist12-innovation-outdooradvertising-activity-7225732844503846912-ZkI0?utm_source=share&utm_medium=member_desktop',
-    // liveLink: null,
     youtubeLink: 'https://studio.youtube.com/watch?v=lgkoDlln6TU/edit',
-    images: ['/public/assets/y12_1.png', '/public/assets/y12_2.png']
+    images: [Y12_1Img, Y12_2Img]
   },
   { 
     title: 'Software Engineer Intern', 
     description: '@OpenTurf_Technologies Built responsive web apps using the PERN stack (PostgreSQL, Express, React, Node.js). Developed frontend with React, backend APIs with Node.js, and managed databases using Sequelize. Implemented secure user authentication with bcrypt and managed sessions with Express Session.',
-    src: '/public/assets/openturf-logo.png', 
+    src: OpenTurfLogoImg, 
     timeline: 'Mar 2024 - Sep 2024',
-    // liveLink: null,
-    // demoLink: null,
-    // youtubeLink: null,
-    images: ['/public/assets/openturf-logo.png', '/public/assets/sei_1.png', '/public/assets/sei_2.png']
+    images: [OpenTurfLogoImg, Sei1Img, Sei2Img]
   }
 ];
-
 
 // Extend the context to include new functionalities
 const ModalContext = createContext({
