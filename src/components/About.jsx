@@ -13,6 +13,7 @@ import {
   X,
   FileText
 } from 'lucide-react';
+import PFP from '../assets/pf.png';
 import './About.css';
 
 const About = () => {
@@ -197,7 +198,7 @@ const About = () => {
                 </div>
             </div>
           <motion.img 
-            src="../assets/pf.png" 
+            src={PFP} 
             alt="Gresham Dave" 
             className="profile-image"
             initial={{ scale: 0.8, opacity: 0 }}

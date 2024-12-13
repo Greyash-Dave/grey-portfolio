@@ -1,8 +1,14 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState, Suspense } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import Lenis from '@studio-freight/lenis'
-import WorkDescCard from './WorkDescCard'
-import ScrollVideo from './ScrollVideo' // Import the new ScrollVideo component
+import BGI from "../assets/coding-stock-footage.mp4"
+
+// Lazy load WorkDescCard
+const WorkDescCard = React.lazy(() => import('./WorkDescCard'));
+
+// Lazy load ScrollVideo
+const ScrollVideo = React.lazy(() => import('./ScrollVideo'));
+
 import { useModal } from '../components/ModalContext'
 import './Home.css'
 
@@ -133,12 +139,6 @@ const Home = () => {
     [0, 1, 1, 1, 1, 0]
   );
 
-  // const cardsOpacity = useTransform(
-  //   scrollYProgress, 
-  //   [0, 0.1], // Opacity becomes 1 after initial 10% scroll
-  //   [0, 1]
-  // );
-
   // Title animation variants
   const titleVariants = {
     hidden: { 
@@ -155,17 +155,26 @@ const Home = () => {
     }
   };
 
+  // Fallback component for Suspense
+  const LoadingFallback = () => (
+    <div className="loading-fallback">
+      <div className="spinner"></div>
+    </div>
+  );
+
   return (
     <div className="home" ref={ref}>
-      {/* Add ScrollVideo component as a background */}
       <div className="end">
-      <p>PROJECTS</p>
+        <p>PROJECTS</p>
       </div>
       <div className="video-container">
-      <ScrollVideo 
-        videoSrc="../assets/coding-stock-footage.mp4" 
-        className="absolute inset-0 z-[-1]" 
-      />
+        <Suspense fallback={<LoadingFallback />}>
+          <ScrollVideo 
+            videoSrc={BGI}
+            className="absolute inset-0 z-[-1]"
+            loading="lazy"
+          />
+        </Suspense>
       </div>
       <motion.div 
         ref={cardContainerRef}
@@ -173,7 +182,7 @@ const Home = () => {
         style={{
           x: useTransform(scrollYProgress, [0, 1], [
             calculateCenterOffset(), 
-            calculateCenterOffset() - 300 //900
+            calculateCenterOffset() - 300
           ])
         }}
       >
@@ -182,14 +191,14 @@ const Home = () => {
           className="workdesc-cards"
           style={{
             x,
-            opacity: cardsOpacity // Apply opacity transformation
+            opacity: cardsOpacity
           }}
         >
           {projectDetails.map((project, index) => (
             <motion.div 
               key={index} 
               className="workdesc-card"
-              onClick={() => openProjectModal(project)} // Add click handler to open modal
+              onClick={() => openProjectModal(project)}
               style={{
                 scale: useTransform(
                   scrollYProgress, 
@@ -201,9 +210,9 @@ const Home = () => {
                   [index/projectDetails.length, (index+1)/projectDetails.length], 
                   [0.6, 1]
                 ),
-                cursor: 'pointer', // Add pointer cursor to indicate clickability
-                position: 'relative', // Ensure cards are above the background video
-                zIndex: 10 // Make sure cards are above the video
+                cursor: 'pointer',
+                position: 'relative',
+                zIndex: 10
               }}
             >
               <div className="card-overlay">
@@ -220,7 +229,13 @@ const Home = () => {
                   </motion.div>
                 </AnimatePresence>
               </div>
-              <WorkDescCard src={project.src} />
+              <Suspense fallback={<LoadingFallback />}>
+                <WorkDescCard 
+                  src={project.src} 
+                  loading="lazy"
+                  alt={`${project.title} project image`}
+                />
+              </Suspense>
             </motion.div>
           ))}
         </motion.div>
