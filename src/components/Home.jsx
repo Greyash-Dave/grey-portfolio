@@ -163,7 +163,7 @@ const Home = () => {
       </div>
       <div className="video-container">
       <ScrollVideo 
-        videoSrc="/src/assets/coding-stock-footage.mp4" 
+        videoSrc="/assets/coding-stock-footage.mp4" 
         className="absolute inset-0 z-[-1]" 
       />
       </div>
