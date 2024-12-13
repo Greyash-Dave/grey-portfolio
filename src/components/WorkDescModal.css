@@ -1,0 +1,109 @@
+/* Dark Theme Modal Styles */
+:root {
+    --primary-color: #4f46e5;         /* Deep indigo */
+    --secondary-color: #6366f1;       /* Bright indigo */
+    --background-color: #111827;      /* Dark blue-gray */
+    --background-secondary: #1f2937;  /* Slightly lighter dark blue-gray */
+    --text-color: #f9fafb;            /* Light gray */
+    --text-muted: #9ca3af;            /* Muted gray */
+    --border-color: #374151;          /* Dark slate gray */
+  }
+  
+  .work-desc-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+  }
+  
+  .work-desc-modal-container {
+    width: 90%;
+    max-width: 1200px;
+    max-height: 90vh;
+    background-color: var(--background-secondary);
+    border-radius: 1rem;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-color);
+  }
+  
+  .work-desc-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.3s ease;
+    z-index: 10;
+  }
+  
+  .work-desc-modal-close:hover {
+    color: var(--text-color);
+  }
+  
+  .work-desc-modal-wrapper {
+    display: flex;
+    height: 100%;
+  }
+  
+  .work-desc-details {
+    width: 40%;
+    padding: 3rem;
+    background-color: var(--background-secondary);
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
+  }
+  
+  .work-desc-media {
+    width: 60%;
+    padding: 3rem;
+    background-color: var(--background-color);
+    overflow-y: auto;
+  }
+
+  .work-desc-modal-overlay,
+  .work-desc-modal-container {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  .work-desc-modal-overlay.closing,
+  .work-desc-modal-container.closing {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  
+
+  
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .work-desc-modal-wrapper {
+      flex-direction: column;
+    }
+  
+    .work-desc-details,
+    .work-desc-media {
+      width: 100%;
+    }
+  
+    .work-desc-details {
+      border-right: none;
+      border-bottom: 1px solid var(--border-color);
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .work-desc-modal-container {
+      width: 95%;
+      height: 95vh;
+    }
+  }

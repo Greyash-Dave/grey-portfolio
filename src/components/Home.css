@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.home {
+    width: 100%;
+    /* background-color: rgba(18, 18, 30, 0.639);  */
+    background-color:transparent;
+    background-image: linear-gradient(135deg, rgba(249, 122, 89, 0.4), rgba(2, 19, 45, 0.7));
+    height: 300vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.home p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    color: rgb(220, 220, 240); /* Soft, light blue-white */
+    font-size: 5rem;
+    font-family: "Anton", sans-serif;
+    font-size: 15rem;
+    text-shadow: 5px 10px var(--neutral);
+}
+
+.workdesc-card-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* z-index: 1; */
+
+}
+
+.workdesc-cards {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    width: fit-content;
+    opacity: 0;
+}
+
+.workdesc-card {
+    flex-shrink: 0;
+    width: 300px;
+    max-width: 90vw;
+    position: relative;
+}
+
+@property --angle {
+    syntax: "<angle>";
+    inherits: true;
+    initial-value: 0deg;
+}
+.home .workdesc-card:hover::after,
+.home .workdesc-card:hover::before {
+    content: '';
+    position: absolute;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 2rem;
+    --angle: 0deg;
+    background-image: conic-gradient(
+        from var(--angle), var(--yin), var(--yang), var(--yin), var(--yang)
+    );
+    animation: autoRotate 2s linear infinite;
+    animation-direction: reverse;
+    top: 50%;
+    left: 50%;
+    transform: translate(-47%, -50%);
+    z-index: -1;
+    /* padding: 5px; */
+    box-sizing: unset;
+}
+
+.home .workdesc-card:hover::after,
+.home .workdesc-card:hover::before{
+    padding: 5px;
+}
+
+
+.workdesc-card:hover::after {
+    filter: blur(60px);
+}
+@keyframes autoRotate {
+    to {
+        --angle: 360deg;
+    }
+}
+
+
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20rem;
+    width: 20rem;
+    background-color: rgba(10, 10, 20, 0.6); /* Dark, transparent overlay */
+    border: 2px white solid;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 2rem;
+}
+
+
+.card-overlay.active {
+    opacity: 1;
+}
+
+.workdesc-card:hover .card-overlay {
+    opacity: 1;
+    /* box-shadow: 0 0 20px rgba(74, 208, 226, 0.4), 
+                0 0 40px rgba(74, 144, 226, 0.3);  */
+}
+
+.card-title {
+    text-align: center;
+    color: rgb(230, 230, 250); /* Soft lavender white */
+    padding: 1rem;
+    max-width: 90%;
+    font-family: "Chakra Petch", sans-serif;
+}
+
+.card-title h2 {
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    /* color: rgb(200, 200, 255);  */
+    color: white; /* Softer periwinkle */
+    font-size: 2.75rem;
+    text-shadow: 2px 2px var(--yang);
+}
+
+.card-title p {
+    font-size: 1rem;
+    opacity: 0.8;
+    /* color: rgb(180, 180, 220);  */
+    color: rgb(181, 255, 234); 
+}
+
+.end {
+    height: 100vh;
+    width: 100%;
+    background-color: rgb(30, 30, 50); /* Deep navy */
+    background: linear-gradient(225deg, var(--yin), var(--yang));
+
+}

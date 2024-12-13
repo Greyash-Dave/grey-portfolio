@@ -1,0 +1,14 @@
+.workdesccard{
+    height: 20rem;
+    width: 20rem;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 2rem;
+}
+
+.workdesccard img{
+    height: 120%;
+}

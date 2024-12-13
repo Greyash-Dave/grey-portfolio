@@ -1,0 +1,149 @@
+.home1 .workdesc-card-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+    transition: z-index 0.3s ease;
+}
+
+.home1 .workdesc-card-container.in-view {
+    z-index: 1;
+}
+
+.home1 {
+    width: 100%;
+    background-color: transparent;
+    background-image: linear-gradient(135deg,rgba(2, 19, 45, 1), rgba(253, 204, 94, 0.2));
+    height: 300vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.home1 p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    color: rgb(240, 240, 255); /* Brighter soft blue-white */
+    font-size: 5rem;
+    z-index: 10;
+    font-family: "Anton", sans-serif;
+    font-size: 15rem;
+    text-shadow: -5px 10px var(--yang);
+}
+
+.home1 .workdesc-cards {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    width: fit-content;
+}
+
+.home1 .workdesc-card {
+    flex-shrink: 0;
+    width: 300px;
+    max-width: 90vw;
+    position: relative;
+}
+
+@property --angle {
+    syntax: "<angle>";
+    inherits: true;
+    initial-value: 0deg;
+}
+.home1 .workdesc-card::after,
+.home1 .workdesc-card::before {
+    content: '';
+    position: absolute;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 2rem;
+    --angle: 0deg;
+    background-image: conic-gradient(
+        from var(--angle), var(--yin), var(--neutral), var(--yin), var(--neutral)
+    );
+    animation: autoRotate 2s linear infinite;
+    top: 50%;
+    left: 50%;
+    transform: translate(-47%, -50%);
+    z-index: -1;
+    /* padding: 5px; */
+    box-sizing: unset;
+}
+
+.home1 .workdesc-card:hover::after,
+.home1 .workdesc-card:hover::before{
+    padding: 5px;
+}
+
+
+.home1 .workdesc-card:hover::after {
+    filter: blur(60px);
+}
+@keyframes autoRotate {
+    from {
+        --angle: 0deg; /* Start at 0 degrees */
+    }
+    to {
+        --angle: -360deg; /* Rotate anticlockwise */
+    }
+}
+
+
+.home1 .card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20rem;
+    width: 20rem;
+    background-color: rgba(10, 10, 20, 0.6); /* Dark, transparent overlay */
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.home1 .card-overlay.active {
+    opacity: 1;
+}
+
+.home1 .workdesc-card:hover .card-overlay {
+    opacity: 1;
+}
+
+.home1 .card-title {
+    text-align: center;
+    color: rgb(240, 240, 255); /* Bright soft blue-white */
+    padding: 1rem;
+    max-width: 90%;
+}
+
+.home1 .card-title h2 {
+    font-size: 2.75rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: white; 
+    text-shadow: 2px 2px var(--neutral);
+
+}
+
+.home1 .card-title p {
+    font-size: 1rem;
+    opacity: 0.8;
+    color: rgb(200, 200, 230); /* Lighter grey-blue */
+}
+
+.home1 .end {
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(45deg,var(--yin), var(--neutral));
+
+}

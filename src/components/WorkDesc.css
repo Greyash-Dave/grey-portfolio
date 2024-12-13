@@ -1,0 +1,390 @@
+/* Dark Theme Portfolio Styles */
+:root {
+  --yin: rgb(2, 19, 45);          /* Deep Midnight Blue */
+  --yang: rgb(249, 122, 89);       /* Vibrant Coral Orange */
+  --neutral: rgb(253, 204, 94);    /* Bright Yellow */
+  
+  --primary-color: var(--yang);    /* Coral Orange as Primary */
+  --secondary-color: var(--neutral); /* Yellow as Secondary */
+  --background-color: var(--yin);  /* Deep Midnight Blue Background */
+  --background-secondary: #0c2240; /* Slightly lighter than background */
+  --text-color: #e2e8f0;           /* Light Gray */
+  --text-muted: #8fa3b5;           /* Softer muted color */
+  --border-color: #1c3659;         /* Dark blue border */
+}
+
+
+.work-desc-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--background-color), var(--background-secondary));
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.full-screen-image-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  cursor: pointer;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.full-screen-image-container {
+  width: 90vw;
+  max-width: 1200px;
+  height: 90vh;
+  position: relative;
+  cursor: default;
+  background-color: rgba(249, 122, 89, 0.2); /* Dark, transparent overlay */
+  border-radius: 8px;
+}
+
+.full-screen-image-scroll-container {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.full-screen-image {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.full-screen-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--yang);
+  cursor: pointer;
+  z-index: 1001;
+}
+
+/* Custom scrollbar for webkit browsers */
+.full-screen-image-scroll-container::-webkit-scrollbar,
+.work-desc-image-scroll-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.full-screen-image-scroll-container::-webkit-scrollbar-track,
+.work-desc-image-scroll-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.full-screen-image-scroll-container::-webkit-scrollbar-thumb,
+.work-desc-image-scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+}
+
+.full-screen-image-scroll-container::-webkit-scrollbar-thumb:hover,
+.work-desc-image-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.work-desc-wrapper {
+  max-width: 1200px;
+  width: 100%;
+  background-color: var(--background-secondary);
+  display: flex;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+/* Details Section */
+.work-desc-details {
+  width: 40%;
+  padding: 3rem;
+  background-color: var(--background-secondary);
+  border-right: 1px solid var(--border-color);
+}
+
+.work-desc-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-color);
+  margin-bottom: 2rem;
+  line-height: 1.2;
+  font-family: "Chakra Petch", sans-serif;
+}
+
+.work-desc-section {
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+  border-left: 4px solid var(--primary-color);
+  font-family: "Chakra Petch", sans-serif;
+}
+
+.work-desc-section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+}
+
+.work-desc-description {
+  color: var(--neutral);
+  line-height: 1.6;
+}
+
+.work-desc-timeline {
+  background-color: var(--background-color);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.work-desc-timeline-text {
+  display: flex;
+  align-items: center;
+  color: var(--neutral);
+}
+
+.timeline-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.5rem;
+  color: var(--primary-color);
+}
+
+.work-desc-links {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.work-desc-live-link,
+.work-desc-github-link {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.work-desc-live-link {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.work-desc-github-link {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.work-desc-live-link:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.work-desc-github-link:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.link-icon {
+  margin-right: 0.5rem;
+}
+
+/* Media Section */
+.work-desc-media {
+  width: 60%;
+  padding: 3rem;
+  background-color: var(--background-color);
+}
+
+.work-desc-image-scroll-container {
+  max-height: 400px; /* Adjust this value as needed */
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 8px;
+  padding-right: 10px; /* Add some padding for scrollbar */
+}
+
+.work-desc-image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.work-desc-image-wrapper {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+}
+
+.work-desc-image {
+  width: 100%;
+  height: 12rem;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  filter: grayscale(20%) contrast(110%);
+}
+
+.work-desc-image:hover {
+  transform: scale(1.1);
+  filter: grayscale(0%) contrast(120%);
+}
+
+.work-desc-video-container {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; 
+  margin-bottom: 2rem;
+  z-index: 10;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.work-desc-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.75rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+/* Image Slider Styles */
+.work-desc-image-slider {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.image-slider-navigation {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.slider-nav-button {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.slider-nav-button:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.slider-nav-button:disabled {
+  background: rgba(0, 0, 0, 0.2);
+  cursor: not-allowed;
+}
+
+.work-desc-image-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.work-desc-image-wrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.work-desc-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.image-slider-pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.pagination-dot {
+  width: 10px;
+  height: 10px;
+  background: #ccc;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.pagination-dot.active {
+  background: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .work-desc-wrapper {
+      flex-direction: column;
+  }
+
+  .work-desc-details,
+  .work-desc-media {
+      width: 100%;
+  }
+
+  .work-desc-details {
+      border-right: none;
+      border-bottom: 1px solid var(--border-color);
+  }
+}
+
+@media (max-width: 640px) {
+  .work-desc-image-grid {
+      grid-template-columns: 1fr;
+  }
+
+  .work-desc-container {
+      padding: 1rem;
+  }
+}

@@ -1,0 +1,55 @@
+.about-page-redirect-container {
+    width: 100%;
+    /* background-color: rgb(25, 25, 40); */
+    background: linear-gradient(0deg, var(--neutral), var(--yin));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 0;
+    text-align: center;
+    height: 85vh;
+    position: absolute;
+    z-index: 1;
+  }
+  
+  .redirect-content {
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  
+  .redirect-text h2 {
+    color: rgb(240, 240, 255);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .redirect-text p {
+    color: white;
+    font-size: 1.2rem;
+  }
+  
+  .redirect-button {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    background-color: rgb(2, 19, 45);
+    color: rgb(240, 240, 255);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .redirect-button:hover {
+    background-color: var(--neutral);
+    color: #000;
+  }
+  
+  .redirect-icon {
+    margin-left: 0.5rem;
+  }
