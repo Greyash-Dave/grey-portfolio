@@ -5,28 +5,28 @@ import WorkDesc from "./WorkDesc";
 
 // Import all images
 import PokemonGameImg from '../assets/pokemon-game.png';
-import PbgImg from '../assets/pbg.png';
+import PbgImg from '../assets/pbg.PNG';
 import CitizenConstitutionImg from '../assets/c-and-c.png';
-import Cac1Img from '../assets/cac1.png';
-import Cac2Img from '../assets/cac2.png';
+import Cac1Img from '../assets/cac1.PNG';
+import Cac2Img from '../assets/cac2.PNG';
 import SpaceYImg from '../assets/space-y.png';
-import SyImg from '../assets/sy.png';
+import SyImg from '../assets/sy.PNG';
 import PanimarImg from '../assets/panimalar.png';
-import PhImg from '../assets/ph.png';
+import PhImg from '../assets/ph.PNG';
 import FlappyImg from '../assets/flappy.jpeg';
-import AImg from '../assets/a.png';
+import AImg from '../assets/a.PNG';
 import UpcomingImg from '../assets/upcoming.jpg';
-import Oph1Img from '../assets/oph_1.png';
-import Oph2Img from '../assets/oph_2.png';
-import Oph3Img from '../assets/oph_3.png';
-import OscImg from '../assets/osc.png';
+import Oph1Img from '../assets/oph_1.PNG';
+import Oph2Img from '../assets/oph_2.PNG';
+import Oph3Img from '../assets/oph_3.PNG';
+import OscImg from '../assets/osc.PNG';
 import OpenpediaImg from '../assets/openpedia.png';
 import YesistImg from '../assets/yesist.png';
-import Y12_1Img from '../assets/y12_1.png';
-import Y12_2Img from '../assets/y12_2.png';
-import OpenTurfLogoImg from '../assets/openturf-logo.png';
-import Sei1Img from '../assets/sei_1.png';
-import Sei2Img from '../assets/sei_2.png';
+import Y12_1Img from '../assets/y12_1.PNG';
+import Y12_2Img from '../assets/y12_2.PNG';
+import OpenTurfLogoImg from '../assets/openturf-logo.PNG';
+import Sei1Img from '../assets/sei_1.PNG';
+import Sei2Img from '../assets/sei_2.PNG';
 
 // Project details with imported images
 const projectDetails = [

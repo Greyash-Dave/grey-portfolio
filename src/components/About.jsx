@@ -158,7 +158,7 @@ const About = () => {
         animate="visible"
       >
       <div className="about-bg-img">
-        {/* <img src='/src/assets/about_bg2.jpg'></img> */}
+        {/* <img src='../assets/about_bg2.jpg'></img> */}
       </div>
       
       <motion.div 
@@ -197,7 +197,7 @@ const About = () => {
                 </div>
             </div>
           <motion.img 
-            src="/src/assets/pf.png" 
+            src="../assets/pf.png" 
             alt="Gresham Dave" 
             className="profile-image"
             initial={{ scale: 0.8, opacity: 0 }}
