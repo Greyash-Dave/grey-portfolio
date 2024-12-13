@@ -8,57 +8,57 @@ const projectDetails = [
   {
     title: "Pokemon Battle Game",
     description: "Interactive web-based Pokémon battle simulator using PokeAPI. Developed using technologies like React.js Node.js and PostgreSQL.",
-    src: "./src/assets/pokemon-game.png",
+    src: "/src/assets/pokemon-game.png",
     timeline: "Jul 2024 - Sep 2024",
     youtubeLink: "https://www.youtube.com/watch?v=v021D_MnzvY",
-    images: ['./src/assets/pokemon-game.png', './src/assets/1.png']
+    images: ['/src/assets/pokemon-game.png', '/src/assets/1.png']
   },
   { 
     title: 'Citizen & Constitution', 
     description: "Gamified learning platform featuring a Renpy-based visual novel game and MVP Gamified Learning Web Platform",
-    src: './src/assets/c-and-c.png',
+    src: '/src/assets/c-and-c.png',
     timeline: 'Sep 2024 - Sep 2024',
     liveLink: 'https://grey-citizen-and-constitution.vercel.app',
     // demoLink: 'https://demo.com/username/citizen-constitution',
     youtubeLink: 'https://studio.youtube.com/watch?v=OO9dnwtZrN4',
-    images: ['./src/assets/2.png', './src/assets/3.png']
+    images: ['/src/assets/2.png', '/src/assets/3.png']
   },
   { 
     title: 'Space Y', 
     description: "Recreation of SpaceX's Homepage using React.js.",
-    src: './src/assets/space-y.png',
+    src: '/src/assets/space-y.png',
     timeline: 'Aug 2024 - Aug 2024',
     liveLink: 'https://space-y-delta.vercel.app',
     demoLink: 'https://www.linkedin.com/posts/gresham-dave_frontenddevelopment-spacex-webdevelopment-activity-7233333524634746880-KlJu?utm_source=share&utm_medium=member_desktop',
     youtubeLink: 'https://studio.youtube.com/watch?v=EqA1cD5CtJM',
-    images: ['./src/assets/space-y.png', './src/assets/4.png']
+    images: ['/src/assets/space-y.png', '/src/assets/4.png']
   },
   { 
     title: 'PEC Homepage', 
     description: "PEC Homepage redesign with features like announcements and event updates using React.js.",
-    src: './src/assets/panimalar.png',
+    src: '/src/assets/panimalar.png',
     timeline: 'Aug 2024 - Aug 2024',
     liveLink: 'https://pec-home-page.vercel.app',
     demoLink: 'https://www.linkedin.com/posts/gresham-dave_webdevelopment-reactjs-css-activity-7227708134973157376-zOV1?utm_source=share&utm_medium=member_desktop',
     youtubeLink: 'https://youtube.com/watch?v=khY8_HCry00/edit',
-    images: ['./src/assets/panimalar.png', './src/assets/5.png']
+    images: ['/src/assets/panimalar.png', '/src/assets/5.png']
   },
   { 
     title: 'ACE', 
     description: "Gesture-based interactive gameplay system using Python, OpenCV, and Unity, featuring a Flappy Bird integration.",
-    src: './src/assets/flappy.jpeg',
+    src: '/src/assets/flappy.jpeg',
     timeline: 'Apr 2023 - Apr 2023',
     // liveLink: 'https://ace-game.com',
     demoLink: 'https://www.linkedin.com/posts/gresham-dave_computervision-flappybird-gestureinput-activity-7225515334332506112-d_Gy?utm_source=share&utm_medium=member_desktop',
     youtubeLink: 'https://studio.youtube.com/watch?v=EIRNBOqlXN0',
-    images: ['./src/assets/flappy.jpeg', './src/assets/6.png']
+    images: ['/src/assets/flappy.jpeg', '/src/assets/6.png']
   },
   { 
     title: '...', 
     description: '...upcoming',
-    src: './src/assets/upcoming.jpg',
+    src: '/src/assets/upcoming.jpg',
     timeline: '...',
-    images: ['./src/assets/upcoming.jpg']
+    images: ['/src/assets/upcoming.jpg']
   }
 ];
 
@@ -67,42 +67,42 @@ const experienceDetails = [
   { 
     title: 'Other Participated Hackathons',
     description: 'Participated in multiple hackathons, showcasing interest in problem-solving skills and innovative thinking.',
-    src: './src/assets/12.png',
+    src: '/src/assets/12.png',
     timeline: '2022 - 2024',
     // liveLink: null,
     // demoLink: null,
     // youtubeLink: null,
-    images: ['./src/assets/12.png', './src/assets/13.png', './src/assets/14.png']
+    images: ['/src/assets/12.png', '/src/assets/13.png', '/src/assets/14.png']
   },
   { 
     title: 'Open Source Contributor', 
     description: 'Contributed to the Openpedia project, focusing on enhancing functionality and user experience.',
-    src: './src/assets/7.png', 
+    src: '/src/assets/7.png', 
     timeline: 'Aug 2024 - Aug 2024',
     liveLink: 'https://github.com/Sriparno08/Openpedia',
     // demoLink: null,
     // youtubeLink: null,
-    images: ['./src/assets/openpedia.png', './src/assets/7.png']
+    images: ['/src/assets/openpedia.png', '/src/assets/7.png']
   },
   { 
     title: 'Yesist12 Finalist', 
     description: 'Recognized as a finalist in the Yesist12 innovation competition, demonstrating technical excellence.',
-    src: './src/assets/yesist.png', 
+    src: '/src/assets/yesist.png', 
     timeline: 'Sep 2023',
     demoLink: 'https://www.linkedin.com/posts/gresham-dave_yesist12-innovation-outdooradvertising-activity-7225732844503846912-ZkI0?utm_source=share&utm_medium=member_desktop',
     // liveLink: null,
     youtubeLink: 'https://studio.youtube.com/watch?v=lgkoDlln6TU/edit',
-    images: ['./src/assets/9.png', './src/assets/8.png']
+    images: ['/src/assets/9.png', '/src/assets/8.png']
   },
   { 
     title: 'Software Engineer Intern', 
     description: '@OpenTurf_Technologies Built responsive web apps using the PERN stack (PostgreSQL, Express, React, Node.js). Developed frontend with React, backend APIs with Node.js, and managed databases using Sequelize. Implemented secure user authentication with bcrypt and managed sessions with Express Session.',
-    src: './src/assets/openturf-logo.png', 
+    src: '/src/assets/openturf-logo.png', 
     timeline: 'Mar 2024 - Sep 2024',
     // liveLink: null,
     // demoLink: null,
     // youtubeLink: null,
-    images: ['./src/assets/openturf-logo.png', './src/assets/10.png', './src/assets/11.png']
+    images: ['/src/assets/openturf-logo.png', '/src/assets/10.png', '/src/assets/11.png']
   }
 ];
 
