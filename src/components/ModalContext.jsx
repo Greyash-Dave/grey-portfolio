@@ -24,7 +24,7 @@ import OpenpediaImg from '../assets/openpedia.png';
 import YesistImg from '../assets/yesist.png';
 import Y12_1Img from '../assets/y12_1.PNG';
 import Y12_2Img from '../assets/y12_2.PNG';
-import OpenTurfLogoImg from '../assets/openturf-logo.png';
+import OpenTurfLogoImg from '../assets/openturf-logo.PNG';
 import Sei1Img from '../assets/sei_1.PNG';
 import Sei2Img from '../assets/sei_2.PNG';
 
