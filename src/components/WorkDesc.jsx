@@ -143,23 +143,26 @@ const WorkDesc = ({
               {videoContainerContent}
             </div>
           )}
+          
           <div className="work-desc-image-slider">
-            <div className="image-slider-navigation">
-              <button 
-                onClick={handlePrevImage} 
-                className="slider-nav-button"
-                disabled={images.length <= imagesPerPage}
-              >
-                <ChevronLeft />
-              </button>
-              <button 
-                onClick={handleNextImage} 
-                className="slider-nav-button"
-                disabled={images.length <= imagesPerPage}
-              >
-                <ChevronRight />
-              </button>
-            </div>
+            {images.length > 2 && (
+              <div className="image-slider-navigation">
+                <button 
+                  onClick={handlePrevImage} 
+                  className="slider-nav-button"
+                  disabled={images.length <= imagesPerPage}
+                >
+                  <ChevronLeft />
+                </button>
+                <button 
+                  onClick={handleNextImage} 
+                  className="slider-nav-button"
+                  disabled={images.length <= imagesPerPage}
+                >
+                  <ChevronRight />
+                </button>
+              </div>
+            )}
             
             <div className="work-desc-image-grid">
               {images
@@ -184,15 +187,17 @@ const WorkDesc = ({
               }
             </div>
             
-            <div className="image-slider-pagination">
-              {Array.from({ length: embedLink ? totalPages : totalPages - 1 }).map((_, index) => (
-                <span 
-                  key={index}
-                  className={`pagination-dot ${index === currentPage ? 'active' : ''}`}
-                  onClick={() => setCurrentImageIndex(index * imagesPerPage)}
-                />
-              ))}
-            </div>
+            {images.length > 2 && (
+              <div className="image-slider-pagination">
+                {Array.from({ length: embedLink ? totalPages : totalPages - 1 }).map((_, index) => (
+                  <span 
+                    key={index}
+                    className={`pagination-dot ${index === currentPage ? 'active' : ''}`}
+                    onClick={() => setCurrentImageIndex(index * imagesPerPage)}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </motion.div>
       </div>
