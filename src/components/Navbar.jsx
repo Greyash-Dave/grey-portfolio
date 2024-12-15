@@ -57,7 +57,7 @@ const Navbar = ({ onWorkClick, onAboutClick, activeView }) => {
             </NavItem>
           </div>
           <div className="c">
-            <img src='/Grey-Red-Logo.png' alt="Back" />
+            <img src='/Grey-Red-Logo.webp' alt="Back" />
           </div>
         </div>
       </div>    

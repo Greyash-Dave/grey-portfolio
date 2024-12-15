@@ -13,7 +13,7 @@ import {
   X,
   FileText
 } from 'lucide-react';
-import PFP from '../assets/pf.png';
+import PFP from '../assets/pf.webp';
 import './About.css';
 
 const About = () => {
