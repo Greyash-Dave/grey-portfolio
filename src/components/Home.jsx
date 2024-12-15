@@ -172,7 +172,6 @@ const Home = () => {
           <ScrollVideo 
             videoSrc={BGI}
             className="absolute inset-0 z-[-1]"
-            loading="lazy"
           />
         </Suspense>
       </div>
@@ -232,7 +231,6 @@ const Home = () => {
               <Suspense fallback={<LoadingFallback />}>
                 <WorkDescCard 
                   src={project.src} 
-                  loading="lazy"
                   alt={`${project.title} project image`}
                 />
               </Suspense>
