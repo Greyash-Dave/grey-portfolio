@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './PageLoader.css'; // Ensure this matches your CSS file name
 
 // Import your logo image
-import LogoImage from '/Grey-Red-Logo.png'; // Replace with your actual logo path
+import LogoImage from '/Grey-Red-Logo.webp'; // Replace with your actual logo path
 
 const PageLoader = () => {
   const [progress, setProgress] = useState(0);
