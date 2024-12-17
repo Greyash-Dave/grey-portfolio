@@ -9,6 +9,9 @@ import PbgImg from '../assets/pbg.webp';
 import CitizenConstitutionImg from '../assets/c-and-c.webp';
 import Cac1Img from '../assets/cac1.webp';
 import Cac2Img from '../assets/cac2.webp';
+import ReadersViewpointIMG from '../assets/rv-thumb.webp';
+import Rv1 from '../assets/rv-1.webp';
+import Rv2 from '../assets/rv-2.webp';
 import SpaceYImg from '../assets/space-y.webp';
 import SyImg from '../assets/sy.webp';
 import PanimarImg from '../assets/panimalar.webp';
@@ -46,6 +49,15 @@ const projectDetails = [
     liveLink: 'https://grey-citizen-and-constitution.vercel.app',
     youtubeLink: 'https://studio.youtube.com/watch?v=OO9dnwtZrN4',
     images: [CitizenConstitutionImg, Cac1Img, Cac2Img]
+  },
+  { 
+    title: "Reader's Viewpoint", 
+    description: "an ePub reader offering a highly user customizability and adfree reading experience",
+    src: ReadersViewpointIMG,
+    timeline: 'Nov 2024 - Nov 2024',
+    liveLink: 'https://readers-viewpoint.vercel.app',
+    youtubeLink: 'https://www.youtube.com/watch?v=10hgdNmQjWU',
+    images: [Rv1, Rv2]
   },
   { 
     title: 'Space Y', 
