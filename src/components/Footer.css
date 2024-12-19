@@ -1,0 +1,30 @@
+.footer{
+    display: flex;
+    align-items: center;
+    z-index: 10;
+}
+
+.footer-content{
+    display: flex;
+    gap: 5rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: fit-content;
+}
+
+.footer .t{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer p{
+    color: white;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.footer h1{
+    color: var(--yang);
+    display: inline;
+}

@@ -7,6 +7,7 @@ import About from "./components/About";
 import Navbar from "./components/Navbar";
 import PageLoader from './components/PageLoader';
 import AboutPageRedirect from './components/AboutPageRedirect';
+import Footer from './components/Footer';
 
 function App() {
   const [currentView, setCurrentView] = useState('work');
@@ -77,6 +78,7 @@ function App() {
           {/* <Hero /> */}
           <Work />
           <AboutPageRedirect onAboutClick={() => handleNavigation('about')} />
+          <Footer />
         </>
       )}
       
@@ -88,6 +90,7 @@ function App() {
           activeView={currentView}
         />
         <About />
+        <Footer />
         </>
       )}
     </div>
