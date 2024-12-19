@@ -3,11 +3,11 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import Lenis from '@studio-freight/lenis'
 import BGI from "../assets/coding-stock-footage.mp4"
 
-// Lazy load WorkDescCard
-const WorkDescCard = React.lazy(() => import('./WorkDescCard'));
+// Import WorkDescCard normally
+import WorkDescCard from './WorkDescCard';
 
-// Lazy load ScrollVideo
-const ScrollVideo = React.lazy(() => import('./ScrollVideo'));
+// Import ScrollVideo normally
+import ScrollVideo from './ScrollVideo';
 
 import { useModal } from '../components/ModalContext'
 import './Home.css'
