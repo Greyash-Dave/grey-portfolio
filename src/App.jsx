@@ -78,7 +78,7 @@ function App() {
           {/* <Hero /> */}
           <Work />
           <AboutPageRedirect onAboutClick={() => handleNavigation('about')} />
-          <Footer />
+          {/* <Footer /> */}
         </>
       )}
       
