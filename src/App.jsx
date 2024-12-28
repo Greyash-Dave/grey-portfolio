@@ -1,7 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ModalProvider } from './components/ModalContext';
-// import Hero from './components/Hero';
 import Work from './components/Work';
 import About from "./components/About";
 import Navbar from "./components/Navbar";
@@ -11,87 +9,122 @@ import Footer from './components/Footer';
 
 function App() {
   const [currentView, setCurrentView] = useState('work');
-  const [isWorkLoading, setIsWorkLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [hasInitiallyLoaded, setHasInitiallyLoaded] = useState(false);
   const scrollContainerRef = useRef(null);
   
   const handleNavigation = (view) => {
     setCurrentView(view);
     
-    // Attempt multiple methods to ensure scroll to top
-    // 1. Native window scroll
     window.scrollTo({
       top: 0,
       left: 0,
       behavior: 'smooth'
     });
 
-    // 2. Lenis scroll (if available)
     const lenis = window?.Lenis || window?.lenis;
     if (lenis) {
       try {
-        // Try different scroll methods
         lenis.scrollTo(0, { 
-          duration: 1.2,  // Smooth scroll duration
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) // Soft easing
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
         });
       } catch (error) {
         console.warn('Lenis scroll failed:', error);
       }
     }
 
-    // 3. Fallback scrolling method for any refs
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollTop = 0;
     }
   };
 
   useEffect(() => {
-    // Only show loading on first visit to work section
-    if (currentView === 'work' && !hasInitiallyLoaded) {
-      setIsWorkLoading(true);
-      
-      // Simulate loading completion
-      const loadTimer = setTimeout(() => {
-        setIsWorkLoading(false);
-        setHasInitiallyLoaded(true);
-      }, 2000);
+    if (!hasInitiallyLoaded) {
+      const preloadComponents = async () => {
+        // Add a minimum loading time
+        const minimumLoadTime = new Promise(resolve => 
+          setTimeout(resolve, 2000)
+        );
 
-      return () => clearTimeout(loadTimer);
+        // Preload your components and assets here
+        try {
+          // You can add specific asset preloading here
+          await Promise.all([
+            // Example: Preload critical images
+            ...document.querySelectorAll('img').forEach(img => {
+              if (img.src) {
+                new Promise((resolve, reject) => {
+                  img.onload = resolve;
+                  img.onerror = reject;
+                });
+              }
+            }),
+            minimumLoadTime
+          ]);
+        } catch (error) {
+          console.warn('Asset preloading error:', error);
+        }
+
+        setIsLoading(false);
+        setHasInitiallyLoaded(true);
+      };
+
+      preloadComponents();
     }
-  }, [currentView, hasInitiallyLoaded]);
+  }, [hasInitiallyLoaded]);
 
   return (
-    <div ref={scrollContainerRef}>
-      
-      {currentView === 'work' && isWorkLoading && !hasInitiallyLoaded && (
-        <PageLoader />
-      )}
-      
-      {currentView === 'work' && !isWorkLoading && (
-        <>
-          <Navbar 
-            onWorkClick={() => handleNavigation('work')}
-            onAboutClick={() => handleNavigation('about')}
-            activeView={currentView}
-          />
-          {/* <Hero /> */}
-          <Work />
-          <AboutPageRedirect onAboutClick={() => handleNavigation('about')} />
-          {/* <Footer /> */}
-        </>
-      )}
-      
-      {currentView === 'about' && (
-        <>
-        <Navbar 
-          onWorkClick={() => handleNavigation('work')}
-          onAboutClick={() => handleNavigation('about')}
-          activeView={currentView}
-        />
-        <About />
-        <Footer />
-        </>
+    <div 
+      ref={scrollContainerRef}
+      style={{ 
+        position: 'relative',
+        minHeight: '100vh'
+      }}
+    >
+      {/* Render all components but keep them hidden during loading */}
+      <div style={{ 
+        visibility: isLoading ? 'hidden' : 'visible',
+        opacity: isLoading ? 0 : 1,
+        transition: 'opacity 1s ease-in-out'
+      }}>
+        {currentView === 'work' && (
+          <>
+            <Navbar 
+              onWorkClick={() => handleNavigation('work')}
+              onAboutClick={() => handleNavigation('about')}
+              activeView={currentView}
+            />
+            <Work />
+            <AboutPageRedirect onAboutClick={() => handleNavigation('about')} />
+          </>
+        )}
+        
+        {currentView === 'about' && (
+          <>
+            <Navbar 
+              onWorkClick={() => handleNavigation('work')}
+              onAboutClick={() => handleNavigation('about')}
+              activeView={currentView}
+            />
+            <About />
+            <Footer />
+          </>
+        )}
+      </div>
+
+      {/* Page Loader */}
+      {isLoading && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 9999
+        }}>
+          <PageLoader />
+        </div>
       )}
     </div>
   );

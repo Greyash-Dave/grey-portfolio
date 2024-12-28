@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import './PageLoader.css'; // Ensure this matches your CSS file name
+import './PageLoader.css';
+import LogoImage from '/Grey-Red-Logo.webp';
 
-// Import your logo image
-import LogoImage from '/Grey-Red-Logo.webp'; // Replace with your actual logo path
-
-const PageLoader = () => {
+const PageLoader = ({ onLoadingComplete }) => {
   const [progress, setProgress] = useState(0);
   const [loadingText, setLoadingText] = useState('Initializing');
 
   const loadingTexts = [
+    'Initializing',
     'Preparing resources',
     'Loading components',
     'Setting up environment',
@@ -16,31 +15,34 @@ const PageLoader = () => {
   ];
 
   useEffect(() => {
-    const simulateLoading = () => {
-      let currentProgress = 0;
-      const interval = setInterval(() => {
-        currentProgress += Math.random() * 20;
-        
-        // Update loading text dynamically
-        const textIndex = Math.floor(currentProgress / 25);
-        if (textIndex < loadingTexts.length) {
-          setLoadingText(loadingTexts[textIndex]);
-        }
+    let startTime = Date.now();
+    const minLoadTime = 3000; // 3 seconds minimum
+    let currentProgress = 0;
+    
+    const updateProgress = () => {
+      const elapsedTime = Date.now() - startTime;
+      const progressPercentage = (elapsedTime / minLoadTime) * 100;
+      
+      // Ensure smooth progress that always takes at least 3 seconds
+      currentProgress = Math.min(progressPercentage, 100);
+      
+      // Update loading text based on progress
+      const textIndex = Math.floor((currentProgress / 100) * (loadingTexts.length - 1));
+      setLoadingText(loadingTexts[textIndex]);
+      
+      setProgress(currentProgress);
 
-        if (currentProgress >= 100) {
-          clearInterval(interval);
-          setProgress(100);
-          // Optional: Add a callback to remove loader
-          return;
-        }
-        setProgress(currentProgress);
-      }, 500);
-
-      return () => clearInterval(interval);
+      if (currentProgress < 100) {
+        requestAnimationFrame(updateProgress);
+      } else {
+        // Only call onLoadingComplete when animation is fully complete
+        setTimeout(() => {
+          onLoadingComplete?.();
+        }, 500); // Add slight delay after reaching 100%
+      }
     };
 
-    const cleanup = simulateLoading();
-    return cleanup;
+    requestAnimationFrame(updateProgress);
   }, []);
 
   return (
