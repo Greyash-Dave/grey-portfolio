@@ -362,29 +362,103 @@
   background: #333;
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
+/* General Mobile Responsiveness Fix */
+@media (max-width: 768px) {
+  .work-desc-container {
+    /* padding: 1rem; */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto; /* Enable vertical scrolling */
+  }
+
   .work-desc-wrapper {
-      flex-direction: column;
+    flex-direction: column;
+    max-width: 100%;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    overflow: scroll; /* Ensure child elements don't exceed boundaries */
   }
 
   .work-desc-details,
   .work-desc-media {
-      width: 100%;
+    width: 100%;
+    max-height: none; /* Remove any height restrictions */
+    overflow-y: auto; /* Enable scrolling for these sections */
   }
 
   .work-desc-details {
-      border-right: none;
-      border-bottom: 1px solid var(--border-color);
+    padding: 2rem 1rem;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .work-desc-media {
+    padding: 2rem 1rem;
+  }
+
+  .work-desc-image-scroll-container {
+    max-height: 300px; /* Restrict height for scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden;
+  }
+
+  .full-screen-image-overlay {
+    overflow-y: auto; /* Ensure full-screen overlays can scroll */
   }
 }
 
-@media (max-width: 640px) {
-  .work-desc-image-grid {
-      grid-template-columns: 1fr;
+/* Small Mobile Screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .work-desc-container {
+    height: auto; /* Let the height adjust naturally */
+    width: 100%;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
   }
 
-  .work-desc-container {
-      padding: 1rem;
+  .work-desc-wrapper{
+    width: 80%;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .work-desc-timeline, .work-desc-section{
+    position: absolute;
+    opacity: 0;
+  }
+
+  .work-desc-media{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  h1{
+    font-size: 1.2rem !important;
+  }
+  h3{
+    font-size: 1rem !important;
+  }
+
+  .work-desc-wrapper {
+    overflow-y: auto; /* Ensure the entire wrapper can scroll */
+  }
+
+  .work-desc-details,
+  .work-desc-media {
+    max-height: none; /* Allow content to grow naturally */
+    overflow-y: auto; /* Enable scrolling for these sections */
+  }
+
+  .work-desc-image-scroll-container {
+    max-height: 200px; /* Further restrict height for smaller screens */
   }
 }
