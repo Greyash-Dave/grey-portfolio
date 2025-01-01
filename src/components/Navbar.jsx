@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react'
-import './Navbar.css'
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import './Navbar.css';
 
 const NavItem = ({ children, onClick, activeView, view }) => {
   const [isHovering, setIsHovering] = useState(false);
@@ -35,9 +35,34 @@ const NavItem = ({ children, onClick, activeView, view }) => {
 };
 
 const Navbar = ({ onWorkClick, onAboutClick, activeView }) => {
+  const [hidden, setHidden] = useState(false);
+  const lastScrollY = useRef(0);
+
+  const handleScroll = useCallback(() => {
+    if (window.innerWidth <= 480) {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY.current) {
+        setHidden(true); // Hide navbar on scroll down
+      } else {
+        setHidden(false); // Show navbar on scroll up
+      }
+
+      lastScrollY.current = currentScrollY;
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [handleScroll]);
+
   return (
     <>
-      <div className="navbar">
+      <div className={`navbar ${hidden ? 'hidden' : ''}`}>
         <div className="container">
           <div className="a">Gresham Dave</div>
           <div className="b">
@@ -62,7 +87,7 @@ const Navbar = ({ onWorkClick, onAboutClick, activeView }) => {
         </div>
       </div>    
     </>
-  )
+  );
 }
 
-export default Navbar
+export default Navbar;
