@@ -111,6 +111,7 @@ function App() {
             />
             <About />
             <ScrollVideo />
+            <Footer />
           </>
         )}
       </div>
