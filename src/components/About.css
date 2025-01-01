@@ -11,8 +11,8 @@ body {
     display: flex;
     /* align-items: center; */
     justify-content: center;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
 }
 
 .about-container {
@@ -296,6 +296,8 @@ body {
 
     .about-card-container {
         flex-direction: column; /* Stack items vertically */
+        align-items: center;
+        justify-content: center;
         padding: 1rem;
     }
 
@@ -311,7 +313,7 @@ body {
     }
 
     .about-header {
-        flex-direction: column; /* Stack elements vertically */
+        flex-direction: column-reverse; /* Stack elements vertically */
         gap: 2rem; /* Reduce spacing */
         padding: 2rem 1rem;
         text-align: center;
@@ -358,7 +360,6 @@ body {
     }
 
     .social-links-container {
-        flex-direction: column; /* Stack social links vertically */
         gap: 0.5rem;
     }
 
@@ -402,10 +403,4 @@ body {
     .contact-text {
         text-align: left; /* Align text to the left */
     }
-}
-
-@media screen and (max-width: 425px) {
-
-    
-
 }

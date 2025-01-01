@@ -158,9 +158,6 @@ const About = () => {
         initial="hidden"
         animate="visible"
       >
-      <div className="about-bg-img">
-        {/* <img src='../assets/about_bg2.jpg'></img> */}
-      </div>
       
       <motion.div 
         className="about-card"
@@ -309,7 +306,7 @@ const About = () => {
               <div className="education-details">
                 <p className="institution">Panimalar Engineering College</p>
                 <p className="duration">July 2022 - Present</p>
-                <p className="achievement">Current CGPA: 8.01/10 (Till 4th Semester)</p>
+                <p className="achievement">Current CGPA: 8.025/10 (Till 5th Semester)</p>
               </div>
             </motion.div>
             <motion.div 
