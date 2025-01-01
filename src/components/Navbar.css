@@ -143,6 +143,8 @@
 
   .navbar {
     transition: transform 0.3s ease-in-out;
+    width: fit-content;
+    height: fit-content;
   }
 
   .navbar.hidden {
@@ -186,11 +188,11 @@
       /* background-color: rgba(0, 0, 0, 0.8); */
   }
   .container .a {
-      font-size: 1rem;
+      font-size: 1.2rem;
   }
 
   .container .b {
-      gap: 0.5rem;
+      gap: 1.2rem;
   }
 
   .container .c img {
@@ -198,6 +200,6 @@
   }
 
   .navbar .b p {
-      font-size: 0.9rem;
+      font-size: 1rem;
   }
 }
