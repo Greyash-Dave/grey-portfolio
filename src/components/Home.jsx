@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState, Suspense } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import Lenis from '@studio-freight/lenis'
-import BGI from "../assets/coding-stock-footage.mp4"
 
 // Import WorkDescCard normally
 import WorkDescCard from './WorkDescCard';
@@ -170,7 +169,6 @@ const Home = () => {
       <div className="video-container">
         <Suspense fallback={<LoadingFallback />}>
           <ScrollVideo 
-            videoSrc={BGI}
             className="absolute inset-0 z-[-1]"
           />
         </Suspense>

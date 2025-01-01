@@ -11,8 +11,8 @@ body {
     display: flex;
     /* align-items: center; */
     justify-content: center;
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
 }
 
 .about-container {
@@ -285,4 +285,127 @@ body {
     filter: drop-shadow(0 0 2px var(--neutral));
     margin-bottom: 1.5rem;
     box-shadow: 0 5px 10px var(--neutral);
+}
+
+/* Global Styles for Mobile */
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 14px; /* Adjust text size */
+        line-height: 1.5;
+    }
+
+    .about-card-container {
+        flex-direction: column; /* Stack items vertically */
+        padding: 1rem;
+    }
+
+    .about-container {
+        flex-direction: column;
+        padding: 2rem 1rem;
+    }
+
+    .about-card {
+        max-width: 100%; /* Take full width on smaller screens */
+        margin: 1rem;
+        padding: 2rem 1rem;
+    }
+
+    .about-header {
+        flex-direction: column; /* Stack elements vertically */
+        gap: 2rem; /* Reduce spacing */
+        padding: 2rem 1rem;
+        text-align: center;
+    }
+
+    .name-title {
+        font-size: 2rem; /* Smaller font size */
+    }
+
+    .professional-tagline {
+        font-size: 1rem; /* Smaller tagline */
+    }
+
+    .skills-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjust grid for smaller screens */
+        gap: 1rem;
+    }
+
+    .skill-category {
+        padding: 1rem; /* Reduce padding */
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr; /* Single column layout */
+        gap: 1rem;
+    }
+
+    .contact-item {
+        padding: 0.8rem; /* Adjust padding */
+    }
+
+    .education-list {
+        gap: 1rem; /* Reduce spacing between items */
+    }
+
+    .education-item {
+        padding: 1rem; /* Smaller padding for compact layout */
+    }
+
+    .profile-image {
+        width: 200px; /* Smaller profile image */
+        height: 200px;
+        margin-bottom: 1rem;
+    }
+
+    .social-links-container {
+        flex-direction: column; /* Stack social links vertically */
+        gap: 0.5rem;
+    }
+
+    .social-icon {
+        padding: 0.3rem; /* Smaller social icon */
+    }
+
+    .about-bg-img img {
+        object-fit: cover; /* Ensure background fits smaller screens */
+    }
+}
+
+/* Extra Small Screens */
+@media screen and (max-width: 480px) {
+    .name-title {
+        font-size: 1.8rem; /* Further reduce font size */
+    }
+
+    .about-header {
+        gap: 1.5rem; /* Adjust spacing */
+    }
+
+    .skill-category h3 {
+        font-size: 1rem; /* Smaller skill title */
+    }
+
+    .skill-tag {
+        padding: 0.3rem 0.6rem; /* Compact skill tags */
+        font-size: 0.8rem;
+    }
+
+    .text-block p {
+        margin-bottom: 1rem; /* Adjust spacing between paragraphs */
+    }
+
+    .contact-item {
+        flex-direction: column; /* Stack icon and text */
+        align-items: flex-start;
+    }
+
+    .contact-text {
+        text-align: left; /* Align text to the left */
+    }
+}
+
+@media screen and (max-width: 425px) {
+
+    
+
 }
