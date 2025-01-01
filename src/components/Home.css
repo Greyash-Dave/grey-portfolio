@@ -154,3 +154,42 @@
     background: linear-gradient(225deg, var(--yin), var(--yang));
 
 }
+
+/* Responsive Styles */
+@media screen and (max-width: 480px) {
+    .home p {
+        font-size: 5rem;
+        text-shadow: 3px 6px var(--neutral);
+    }
+
+    .workdesc-card {
+        margin: 0 auto;
+        height: 15rem;
+        width: 15rem;
+        border-radius: 1rem;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .home .workdesc-card:hover::after,
+    .home .workdesc-card:hover::before {
+        width: 15rem;
+        height: 15rem;
+    }
+
+    .card-overlay {
+        height: 15rem;
+        width: 15rem;
+        border-radius: 1rem;
+    }
+
+    .card-title h2 {
+        font-size: 2rem;
+    }
+
+    .card-title p {
+        font-size: 0.9rem;
+    }
+}

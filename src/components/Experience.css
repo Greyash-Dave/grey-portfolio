@@ -147,3 +147,42 @@
     background: linear-gradient(45deg,var(--yin), var(--neutral));
 
 }
+
+/* Responsive Styles */
+@media screen and (max-width: 480px) {
+    .home1 p {
+        font-size: 5rem;
+        text-shadow: 3px 6px var(--neutral);
+    }
+
+    .home1 .workdesc-card {
+        margin: 0 auto;
+        height: 15rem;
+        width: 15rem;
+        border-radius: 1rem;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .home1 .workdesc-card:hover::after,
+    .home1 .workdesc-card:hover::before {
+        width: 15rem;
+        height: 15rem;
+    }
+
+    .home1 .card-overlay {
+        height: 15rem;
+        width: 15rem;
+        border-radius: 1rem;
+    }
+
+    .home1 .card-title h2 {
+        font-size: 2rem;
+    }
+
+    .home1 .card-title p {
+        font-size: 0.9rem;
+    }
+}
