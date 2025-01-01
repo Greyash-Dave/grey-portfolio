@@ -6,6 +6,8 @@ import Navbar from "./components/Navbar";
 import PageLoader from './components/PageLoader';
 import AboutPageRedirect from './components/AboutPageRedirect';
 import Footer from './components/Footer';
+import { Scroll } from 'lucide-react';
+import ScrollVideo from './components/ScrollVideo';
 
 function App() {
   const [currentView, setCurrentView] = useState('work');
@@ -108,7 +110,7 @@ function App() {
               activeView={currentView}
             />
             <About />
-            <Footer />
+            <ScrollVideo />
           </>
         )}
       </div>
