@@ -107,3 +107,10 @@
       height: 95vh;
     }
   }
+
+  @media (max-width: 480px) {
+    .work-desc-modal-close{
+      top: 40px;
+      right: 20px;
+    }
+  }

@@ -418,6 +418,12 @@
     justify-content: center; */
   }
 
+  .full-screen-close-button{
+    top: 30px;
+    right: 20px;
+    
+  }
+
   .work-desc-wrapper{
     width: 80%;
     display: flex;
