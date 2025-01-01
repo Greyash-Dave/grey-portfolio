@@ -25,7 +25,7 @@ const ScrollVideo = () => {
 
     // Background particles
     const particlesGeometry = new THREE.BufferGeometry();
-    const particleCount = 2000;
+    const particleCount = 1500;
     const posArray = new Float32Array(particleCount * 3);
 
     for (let i = 0; i < particleCount * 3; i++) {
@@ -33,12 +33,19 @@ const ScrollVideo = () => {
     }
 
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    const textureLoader = new THREE.TextureLoader();
+    const circleTexture = textureLoader.load(
+      'https://threejs.org/examples/textures/sprites/circle.png'
+    );
+    
     const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.01,
+      size: 0.025, // Increase the size for better visibility
+      map: circleTexture,
       color: '#ffffff',
       transparent: true,
-      opacity: 1,
+      alphaTest: 0.5, // Helps with performance by skipping fully transparent pixels
     });
+    
 
     const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particlesMesh);
