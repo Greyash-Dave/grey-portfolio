@@ -34,7 +34,7 @@ import Sei2Img from '../assets/sei_2.webp';
 // Project details with imported images
 const projectDetails = [
   {
-    title: "Pokemon Battle Game",
+    title: "Pokemon Card Game",
     description: "Interactive web-based Pokémon battle simulator using PokeAPI. Developed using technologies like React.js Node.js and PostgreSQL.",
     src: PokemonGameImg,
     timeline: "Jul 2024 - Sep 2024",
