@@ -217,7 +217,7 @@ const About = () => {
           <div className="text-block">
             <p>
               I'm a passionate tech enthusiast with a deep commitment to advancing technology through innovative 
-              software development and artificial intelligence. With over six months of hands-on experience in 
+              software development and artificial intelligence. With over ten months of hands-on experience in 
               full-stack development, I've cultivated a robust skill set that spans web technologies, machine learning, 
               and computer vision.
             </p>
