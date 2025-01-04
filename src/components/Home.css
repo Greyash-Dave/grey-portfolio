@@ -22,7 +22,11 @@
     font-size: 5rem;
     font-family: "Anton", sans-serif;
     font-size: 15rem;
-    text-shadow: 5px 10px var(--neutral);
+    text-shadow: 
+        2px 2px 0 rgba(253, 204, 94, 0.5),   /* First shadow */
+        4px 4px 0 rgba(253, 204, 94, 0.5),   /* Second shadow */
+        6px 6px 0 rgba(253, 204, 94, 0.5),   /* Third shadow */
+        8px 8px 5px rgba(253, 204, 94, 0); /* Blurred shadow for depth */
 }
 
 .workdesc-card-container {
