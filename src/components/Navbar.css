@@ -130,6 +130,13 @@
     animation-play-state: paused;
   }
 
+  #youtube-player {
+    position: absolute;
+    visibility: hidden;
+    height: 0;
+    width: 0;
+  }
+
   /* Responsive Styles */
 @media screen and (max-width: 768px) {
 

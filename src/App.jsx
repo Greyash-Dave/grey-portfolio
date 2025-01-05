@@ -84,6 +84,11 @@ function App() {
         minHeight: '100vh'
       }}
     >
+      <Navbar 
+        onWorkClick={() => handleNavigation('work')}
+        onAboutClick={() => handleNavigation('about')}
+        activeView={currentView}
+      />
       {/* Render all components but keep them hidden during loading */}
       <div style={{ 
         visibility: isLoading ? 'hidden' : 'visible',
@@ -92,11 +97,6 @@ function App() {
       }}>
         {currentView === 'work' && (
           <>
-            <Navbar 
-              onWorkClick={() => handleNavigation('work')}
-              onAboutClick={() => handleNavigation('about')}
-              activeView={currentView}
-            />
             <Work />
             <AboutPageRedirect onAboutClick={() => handleNavigation('about')} />
           </>
@@ -104,11 +104,6 @@ function App() {
         
         {currentView === 'about' && (
           <>
-            <Navbar 
-              onWorkClick={() => handleNavigation('work')}
-              onAboutClick={() => handleNavigation('about')}
-              activeView={currentView}
-            />
             <About />
             <ScrollVideo />
             <Footer />

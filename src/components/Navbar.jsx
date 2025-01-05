@@ -36,26 +36,56 @@ const NavItem = ({ children, onClick, activeView, view }) => {
 
 const Navbar = ({ onWorkClick, onAboutClick, activeView }) => {
   const [hidden, setHidden] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const lastScrollY = useRef(0);
+  const iframeRef = useRef(null);
+  const playerReadyRef = useRef(false);
 
   const handleScroll = useCallback(() => {
     if (window.innerWidth <= 480) {
       const currentScrollY = window.scrollY;
 
       if (currentScrollY > lastScrollY.current) {
-        setHidden(true); // Hide navbar on scroll down
+        setHidden(true);
       } else {
-        setHidden(false); // Show navbar on scroll up
+        setHidden(false);
       }
 
       lastScrollY.current = currentScrollY;
     }
   }, []);
 
+  const handleLogoClick = () => {
+    if (iframeRef.current && playerReadyRef.current) {
+      if (isPlaying) {
+        iframeRef.current.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+      } else {
+        iframeRef.current.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
   useEffect(() => {
+    // Handle YouTube player events
+    const handleMessage = (event) => {
+      if (event.data && typeof event.data === 'string') {
+        try {
+          const data = JSON.parse(event.data);
+          if (data.event === 'onReady') {
+            playerReadyRef.current = true;
+          }
+        } catch (e) {
+          // Ignore parsing errors from other messages
+        }
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
     window.addEventListener('scroll', handleScroll);
 
     return () => {
+      window.removeEventListener('message', handleMessage);
       window.removeEventListener('scroll', handleScroll);
     };
   }, [handleScroll]);
@@ -82,12 +112,28 @@ const Navbar = ({ onWorkClick, onAboutClick, activeView }) => {
             </NavItem>
           </div>
           <div className="c">
-            <img src='/Grey-Red-Logo.webp' alt="Back" />
+            <img 
+              src='/Grey-Red-Logo.webp' 
+              alt="Back" 
+              onClick={handleLogoClick}
+              style={{ cursor: 'pointer' }}
+            />
           </div>
         </div>
-      </div>    
+      </div>
+      <iframe
+        ref={iframeRef}
+        src="https://www.youtube.com/embed/Gcm6gpuxlfY?enablejsapi=1&autoplay=1&playlist=Gcm6gpuxlfY&loop=1"
+        allow="autoplay"
+        style={{ 
+          position: 'absolute',
+          visibility: 'hidden',
+          height: 0,
+          width: 0 
+        }}
+      />
     </>
   );
-}
+};
 
 export default Navbar;
