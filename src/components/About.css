@@ -179,12 +179,17 @@ body {
     border: 2px solid var(--yang);
 }
 
+.skill-category:hover .skill-tag{
+    color: white;
+
+}
+
 .skill-category:hover h3{
     color: var(--yang);
 }
 
 .skill-tag:hover {
-    color: white;
+    color: var(--neutral)!important;
 
 }
 
@@ -223,21 +228,26 @@ body {
     align-items: center;
     background-color: rgba(0, 0, 0, 0.3);
     padding: 1rem;
+    border: 2px solid transparent;
     border-radius: 1rem;
     transition: all 0.3s ease;
 }
 
-.contact-item:hover .contact-text{
-    color: white;
+.contact-item:hover{
+    border: 2px solid white;
+}
+
+.contact-item:hover .contact-icon {
+    color: var(--yang);
 }
 
 .contact-icon {
-    color: var(--yang);
+    color: var(--neutral);
     margin-right: 1rem;
 }
 
 .contact-text {
-    color: var(--neutral);
+    color: white;
     font-weight: 500;
 }
 
