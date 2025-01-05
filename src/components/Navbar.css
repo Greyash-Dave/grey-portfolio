@@ -137,6 +137,107 @@
     width: 0;
   }
 
+/* Add these styles to your Navbar.css file */
+
+.music-controls {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--yin);
+  border-radius: 8px;
+  padding: 12px;
+  width: 250px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  color: white;
+  margin-top: 8px;
+}
+
+.music-controls.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.song-info {
+  margin-bottom: 12px;
+}
+
+.song-title {
+  font-size: 12px;
+  color: var(--yang);
+  margin-bottom: 4px;
+}
+
+.song-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.control-buttons {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.control-button {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+  border: none;
+  color: white;
+  flex: 1;
+}
+
+.control-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.playlist-container {
+  margin-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 12px;
+}
+
+.playlist-title {
+  font-size: 12px;
+  color: var(--yang);
+  margin-bottom: 8px;
+}
+
+.playlist-items {
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.playlist-item {
+  padding: 8px;
+  font-size: 13px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.playlist-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.playlist-item.current {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--neutral);
+}
+
+.c {
+  position: relative;
+}
+
   /* Responsive Styles */
 @media screen and (max-width: 768px) {
 
