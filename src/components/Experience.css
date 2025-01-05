@@ -156,7 +156,7 @@
 @media screen and (max-width: 480px) {
     .home1 p {
         font-size: 5rem;
-        text-shadow: 3px 6px var(--neutral);
+        text-shadow: none;
     }
 
     .home1 .workdesc-card {
