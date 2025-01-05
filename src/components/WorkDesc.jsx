@@ -119,7 +119,7 @@ const WorkDesc = ({
                   rel="noopener noreferrer"
                   className="work-desc-github-link"
                 >
-                  <Linkedin className="link-icon"/> LinkedIn Post
+                  <Linkedin className="link-icon"/> More Info
                 </a>
               )}
             </div>

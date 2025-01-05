@@ -48,6 +48,7 @@ const projectDetails = [
     timeline: 'Sep 2024 - Sep 2024',
     liveLink: 'https://grey-citizen-and-constitution.vercel.app',
     youtubeLink: 'https://studio.youtube.com/watch?v=OO9dnwtZrN4',
+    demoLink: 'https://www.linkedin.com/posts/gresham-dave_sih2024-constitutionaleducation-panimalarengineeringcollege-activity-7280440194489622528-NIeB?utm_source=share&utm_medium=member_desktop',
     images: [CitizenConstitutionImg, Cac1Img, Cac2Img]
   },
   { 
