@@ -5,12 +5,13 @@ import Experience from './Experience'
 
 const Work = () => {
   const lenisRef = useRef(null);
+  const lastTouchX = useRef(null);
 
   useEffect(() => {
     // Create a new Lenis instance for this page
     lenisRef.current = new Lenis({
       duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Slightly modified easing
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: 'vertical',
       gestureDirection: 'vertical',
       smooth: true,
@@ -26,6 +27,31 @@ const Work = () => {
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) 
     });
 
+    // Handle horizontal touch gestures and convert to vertical scroll
+    const handleTouchStart = (e) => {
+      lastTouchX.current = e.touches[0].clientX;
+    };
+
+    const handleTouchMove = (e) => {
+      if (!lastTouchX.current) return;
+
+      const touchDeltaX = lastTouchX.current - e.touches[0].clientX;
+      // Convert horizontal movement to vertical scroll
+      // Positive deltaX (right to left) = scroll down
+      // Negative deltaX (left to right) = scroll up
+      if (Math.abs(touchDeltaX) > 10) { // Add threshold to prevent accidental triggers
+        const scrollAmount = touchDeltaX * 2; // Adjust multiplier for sensitivity
+        window.scrollBy(0, scrollAmount);
+        e.preventDefault(); // Prevent horizontal scrolling
+      }
+
+      lastTouchX.current = e.touches[0].clientX;
+    };
+
+    const handleTouchEnd = () => {
+      lastTouchX.current = null;
+    };
+
     // Animate Lenis scroll
     function raf(time) {
       lenisRef.current?.raf(time);
@@ -33,18 +59,25 @@ const Work = () => {
     }
     requestAnimationFrame(raf);
 
-    // Add event listener to ensure top of page on mount
+    // Add event listeners
     window.addEventListener('load', () => {
       lenisRef.current?.scrollTo(0, { 
         duration: 1.2, 
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) 
       });
     });
+    
+    document.addEventListener('touchstart', handleTouchStart, { passive: false });
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    document.addEventListener('touchend', handleTouchEnd);
 
-    // Cleanup Lenis instance when component unmounts
+    // Cleanup
     return () => {
       lenisRef.current?.destroy();
       window.removeEventListener('load', () => {});
+      document.removeEventListener('touchstart', handleTouchStart);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleTouchEnd);
     };
   }, []);
 
