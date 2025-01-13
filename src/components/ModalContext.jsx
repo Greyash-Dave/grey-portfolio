@@ -38,7 +38,7 @@ const projectDetails = [
     description: "Interactive web-based Pokémon battle simulator using PokeAPI. Developed using technologies like React.js Node.js and PostgreSQL.",
     src: PokemonGameImg,
     timeline: "Jul 2024 - Sep 2024",
-    liveLink: 'https://pokemon-card-game-client.vercel.app/',
+    liveLink: 'https://pokemon-card-game-client.vercel.app',
     youtubeLink: "https://www.youtube.com/watch?v=v021D_MnzvY",
     images: [PokemonGameImg, PbgImg]
   },

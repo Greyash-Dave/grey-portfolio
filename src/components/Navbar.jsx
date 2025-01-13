@@ -2,15 +2,15 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './Navbar.css';
 import { useModal } from '../components/ModalContext'
 
-// Predefined playlist
+// Predefined playlist remains the same
 const PLAYLIST = [
   { id: 'qjElWBGZou4', title: 'Dosi & Aisake @NCS' },
   { id: 'ihPTNp7370s', title: 'sumu - apart @NCS' },
   { id: '0Wa_CR0H8g4', title: 'Best of Me @NEFFEX' },
   { id: 'TXcg25C56xM', title: 'Hope @NEFFEX' },
-  // Add more songs as needed
 ];
 
+// NavItem component remains the same
 const NavItem = ({ children, onClick, activeView, view }) => {
   const [isHovering, setIsHovering] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
@@ -44,6 +44,7 @@ const NavItem = ({ children, onClick, activeView, view }) => {
   );
 };
 
+// MusicControls component remains the same
 const MusicControls = ({ 
   isPlaying, 
   onTogglePlay, 
@@ -98,56 +99,54 @@ const MusicControls = ({
 const Navbar = ({ onWorkClick, onAboutClick, activeView }) => {
   const [hidden, setHidden] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
+  // New state to track user's intended playback state
+  const [userWantsPlaying, setUserWantsPlaying] = useState(true);
   const [showMusicControls, setShowMusicControls] = useState(false);
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const lastScrollY = useRef(0);
   const playerRef = useRef(null);
   const controlsTimeoutRef = useRef(null);
 
-  const { isModalOpen } = useModal(); // Access the modal state
+  const { isModalOpen } = useModal();
 
-  // Pause music when modal is open
+  // Updated modal effect to respect user's playback preference
   useEffect(() => {
     if (playerRef.current) {
       if (isModalOpen) {
         playerRef.current.pauseVideo();
         setIsPlaying(false);
       } else {
-        // Ensure the player is ready before trying to play
-        if (playerRef.current.getPlayerState() !== window.YT.PlayerState.PLAYING) {
+        // Only resume playing if the user wants it to play
+        if (userWantsPlaying) {
           playerRef.current.playVideo();
+          setIsPlaying(true);
         }
-        setIsPlaying(true);
       }
     }
-  }, [isModalOpen]);
-  
+  }, [isModalOpen, userWantsPlaying]);
 
-useEffect(() => {
-  // Function to handle other audio/video playing
-  const handleOtherAudioPlay = (event) => {
-    if (event.target !== playerRef.current) {
-      // Pause your music if another audio/video plays
-      if (playerRef.current && playerRef.current.pauseVideo) {
-        playerRef.current.pauseVideo();
+  useEffect(() => {
+    const handleOtherAudioPlay = (event) => {
+      if (event.target !== playerRef.current) {
+        if (playerRef.current && playerRef.current.pauseVideo) {
+          playerRef.current.pauseVideo();
+          setIsPlaying(false);
+          // Don't update userWantsPlaying here as this is an external interrupt
+        }
       }
-    }
-  };
+    };
 
-  // Add event listeners to all audio and video elements
-  const allMedia = document.querySelectorAll('audio, video');
-  allMedia.forEach((media) => {
-    media.addEventListener('play', handleOtherAudioPlay);
-  });
-
-  return () => {
-    // Clean up event listeners
+    const allMedia = document.querySelectorAll('audio, video');
     allMedia.forEach((media) => {
-      media.removeEventListener('play', handleOtherAudioPlay);
+      media.addEventListener('play', handleOtherAudioPlay);
     });
-  };
-}, []);
 
+    return () => {
+      allMedia.forEach((media) => {
+        media.removeEventListener('play', handleOtherAudioPlay);
+      });
+    };
+  }, []);
 
   const handleScroll = useCallback(() => {
     if (window.innerWidth <= 480) {
@@ -182,11 +181,12 @@ useEffect(() => {
         },
         events: {
           onReady: (event) => {
-            event.target.playVideo();
+            if (userWantsPlaying) {
+              event.target.playVideo();
+            }
           },
           onStateChange: (event) => {
             setIsPlaying(event.data === window.YT.PlayerState.PLAYING);
-            // Auto-play next song when current one ends
             if (event.data === window.YT.PlayerState.ENDED) {
               handleNextTrack();
             }
@@ -196,12 +196,15 @@ useEffect(() => {
     };
   };
 
+  // Updated to track both actual and intended state
   const handlePlayPause = () => {
     if (playerRef.current) {
       if (isPlaying) {
         playerRef.current.pauseVideo();
+        setUserWantsPlaying(false);
       } else {
         playerRef.current.playVideo();
+        setUserWantsPlaying(true);
       }
     }
   };
@@ -211,6 +214,10 @@ useEffect(() => {
       const nextIndex = (currentSongIndex + 1) % PLAYLIST.length;
       setCurrentSongIndex(nextIndex);
       playerRef.current.loadVideoById(PLAYLIST[nextIndex].id);
+      // Maintain the user's playback preference when changing tracks
+      if (userWantsPlaying && !isModalOpen) {
+        playerRef.current.playVideo();
+      }
     }
   };
 
@@ -241,7 +248,6 @@ useEffect(() => {
       }
     };
   }, [handleScroll]);
-  
 
   return (
     <>
