@@ -38,6 +38,7 @@ const projectDetails = [
     description: "Interactive web-based Pokémon battle simulator using PokeAPI. Developed using technologies like React.js Node.js and PostgreSQL.",
     src: PokemonGameImg,
     timeline: "Jul 2024 - Sep 2024",
+    liveLink: 'https://pokemon-card-game-client.vercel.app/',
     youtubeLink: "https://www.youtube.com/watch?v=v021D_MnzvY",
     images: [PokemonGameImg, PbgImg]
   },
@@ -85,6 +86,7 @@ const projectDetails = [
     description: "Gesture-based interactive gameplay system using Python, OpenCV, and Unity, featuring a Flappy Bird integration.",
     src: FlappyImg,
     timeline: 'Apr 2023 - Apr 2023',
+    liveLink: 'https://github.com/Greyash-Dave/ACE',
     demoLink: 'https://www.linkedin.com/posts/gresham-dave_computervision-flappybird-gestureinput-activity-7225515334332506112-d_Gy?utm_source=share&utm_medium=member_desktop',
     youtubeLink: 'https://studio.youtube.com/watch?v=EIRNBOqlXN0',
     images: [FlappyImg, AImg]
