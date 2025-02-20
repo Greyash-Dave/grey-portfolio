@@ -56,6 +56,19 @@
     position: relative;
 }
 
+.home1 .workdesc-card-container {
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease-out
+    /* background-color: black; */
+  }
+
+.home1 .workdesc-card-container.in-view {
+    opacity: 1;
+    z-index: 1000;
+    /* background-color: antiquewhite; */
+}
+
 @property --angle {
     syntax: "<angle>";
     inherits: true;

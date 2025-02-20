@@ -32,7 +32,7 @@ const Experience = () => {
         }
       },
       { 
-        threshold: 0.1 // Trigger when at least 10% of the component is visible
+        threshold: 0.3 // Trigger when at least 10% of the component is visible
       }
     );
 
