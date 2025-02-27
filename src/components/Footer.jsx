@@ -17,7 +17,7 @@ const Footer = () => {
   const content = [
     { text: '© 2024 Grey.' },
     { text: 'Gresham Dave | Portfolio' },
-    { text: 'Last Updated 01-01-2024' }
+    { text: 'Last Updated 27-02-2024' }
   ];
 
   const repeatedContent = [...content, ...content, ...content];

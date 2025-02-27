@@ -62,12 +62,11 @@ const About = () => {
   }, []);
     
   const skills = {
-    languages: ['Python', 'C', 'C++', 'Java', 'JavaScript', 'HTML', 'CSS'],
-    databases: ['PostgreSQL', 'Oracle', 'MySQL', 'PL/SQL', 'PHP'],
-    frameworks: ['OpenCV', 'Pygame', 'Django', 'ReactJS', 'NodeJS', 'ExpressJS', 'SequelizeJS'],
-    technologies: ['Numpy', 'Pandas', 'Matplotlib', 'Scikit-learn', 'Socket Programming'],
-    tools: ['Git', 'VS Code', 'PyCharm', 'Blender', 'DaVinci Resolve'],
-    logging: ['Winston & Morgan Logging'],
+    languages: ['JavaScript', 'Python', 'Java', 'Rust', 'C', 'C# (Unity)', 'Bash/Shell', 'HTML', 'CSS'],
+    databases: ['PostgreSQL', 'Supabase', 'MySQL'],
+    frameworks: ['React.js', 'Node.js', 'Express.js', 'Axios', 'Sequelize', 'Tailwindcss', 'Framer Motion', 'Lenis', 'Three.js', 'Pygame', 'Ren\'Py', 'OpenCV'],
+    technologies: ['Pandas', 'Numpy', 'Matplotlib', 'Scikit-learn', 'Selenium', 'Linux', 'NixOS', 'FFmpeg', 'Whisper'],
+    tools: ['Git', 'Docker', 'Vim', 'Postman', 'Notion', 'Canva', 'Ollama', 'VS Code', 'Unity', 'Blender', 'DaVinci Resolve'],
     coursework: ['Data Structures', 'Algorithms', 'Python', 'Web Development', 'Object-Oriented Programming', 'Database Management System', 'Software Design', 'Software Engineering']
   };
     const socialLinks = [
@@ -174,7 +173,7 @@ const About = () => {
             <div className="about-header-info">
             <h1 className="name-title">Gresham Dave C</h1>
             <p className="professional-tagline">
-                Aspiring Software Engineer | Full-Stack Developer | AI Enthusiast
+                Software Engineer | Full-Stack Developer | AI Enthusiast
             </p>
 
                 <div className="social-links-container">
@@ -280,7 +279,6 @@ const About = () => {
             {renderSkillCategory('Frameworks', skills.frameworks)}
             {renderSkillCategory('Technologies', skills.technologies)}
             {renderSkillCategory('Tools', skills.tools)}
-            {renderSkillCategory('Logging', skills.logging)}
             {renderSkillCategory('Coursework', skills.coursework)}
           </div>
         </motion.div>
