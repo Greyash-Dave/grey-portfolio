@@ -8,21 +8,27 @@
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    /* background-color: rgba(0, 0, 0, 0.2); */
+    transition: background-color 0.3s ease;
+}
+
+/* Add subtle background on scroll for better readability */
+.navbar.scrolled {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
 }
 
 .navbar .b{
-  gap: 2rem;
+    gap: 2rem;
 }
 
 .navbar .b p {
     cursor: pointer;
     transition: color 0.3s ease;
     font-family: "Chakra Petch", sans-serif;
-  }
+    letter-spacing: 0.5px;
+}
   
 .navbar .b p.active{
-    /* border-bottom: 3px solid var(--yang); */
     font-weight: bold;
 }
 
@@ -34,7 +40,10 @@
     font-size: 1.1rem;
     color: white;
     font-weight: bold;
-    /* padding: 0rem 2rem; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
 }
 
 .container .a{
@@ -44,6 +53,7 @@
     transform: translate(-50%, -50%);
     font-family: "Chakra Petch", sans-serif;
     font-size: 1.3rem;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .container .b{
@@ -65,249 +75,309 @@
 
 .container .c img{
     width: 100%;
-    /* filter: invert(100%); */
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
-/* .container:hover{
-    background-color:rgba(255, 255, 255, 0.137);
-} */
+.container .c img:hover {
+    transform: scale(1.1);
+}
 
 .container p:hover{
-    /* border-bottom: 3px solid var(--neutral) !important; */
     cursor: pointer;
 }
 
-
 .navbar-item {
-  position: relative;
-  cursor: pointer;
-  font-weight: bold;
-  overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    font-weight: bold;
+    overflow: hidden;
+    padding: 0.5rem 0;
 }
 
 .navbar-item::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  bottom: 0px;
-  left: 0;
-  background-color: var(--neutral) !important;
-  transform: scaleX(0);
-  transform-origin: left;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0px;
+    left: 0;
+    background-color: var(--neutral) !important;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease-in-out;
 }
 
 .navbar-item.hovering::after {
-  transform: scaleX(1);
-  transition: transform 0.3s ease-in-out;
+    transform: scaleX(1);
 }
 
 .navbar-item.hovered::after {
-  transform: translate(100%, 0%);
-  transition: transform 0.3s ease-in-out;
+    transform: translate(100%, 0%);
 }
 
 .navbar-item.active {
-  color: var(--neutral);
-  text-shadow: 1px 1px black;
-
+    color: var(--neutral);
+    text-shadow: 1px 1px black;
 }
 
 @keyframes spin {
     from {
-      transform: rotate(0deg);
+        transform: rotate(0deg);
     }
     to {
-      transform: rotate(360deg);
+        transform: rotate(360deg);
     }
-  }
+}
   
-  .c img {
+.c img.spinning {
     animation: spin 3s linear infinite;
-  }
+}
 
-  .c img:hover {
+.c img:hover {
     animation-play-state: paused;
-  }
+}
 
-  #youtube-player {
+#youtube-player {
     position: absolute;
     visibility: hidden;
     height: 0;
     width: 0;
-  }
+}
 
-/* Add these styles to your Navbar.css file */
-
+/* Music controls with improved styling */
 .music-controls {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: var(--yin);
-  border-radius: 8px;
-  padding: 12px;
-  width: 250px;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
-  z-index: 1000;
-  color: white;
-  margin-top: 8px;
+    position: absolute;
+    top: 100%;
+    right: -10px;
+    background-color: var(--yin);
+    border-radius: 12px;
+    padding: 16px;
+    width: 280px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    color: white;
+    margin-top: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .music-controls.visible {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 .song-info {
-  margin-bottom: 12px;
+    margin-bottom: 16px;
+    border-left: 3px solid var(--neutral);
+    padding-left: 10px;
 }
 
 .song-title {
-  font-size: 12px;
-  color: var(--yang);
-  margin-bottom: 4px;
+    font-size: 12px;
+    color: var(--yang);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: "Chakra Petch", sans-serif;
 }
 
 .song-name {
-  font-size: 14px;
-  font-weight: 500;
+    font-size: 15px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .control-buttons {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
 }
 
 .control-button {
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  text-align: center;
-  font-size: 14px;
-  transition: background-color 0.2s ease;
-  border: none;
-  color: white;
-  flex: 1;
+    background-color: rgba(255, 255, 255, 0.08);
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    flex: 1;
+    font-family: "Chakra Petch", sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
 .control-button:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.control-button:active {
+    transform: translateY(0);
 }
 
 .playlist-container {
-  margin-top: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 12px;
+    margin-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 12px;
 }
 
 .playlist-title {
-  font-size: 12px;
-  color: var(--yang);
-  margin-bottom: 8px;
+    font-size: 12px;
+    color: var(--yang);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: "Chakra Petch", sans-serif;
 }
 
 .playlist-items {
-  max-height: 150px;
-  overflow-y: auto;
+    max-height: 160px;
+    overflow-y: auto;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 4px;
+}
+
+.playlist-items::-webkit-scrollbar {
+    width: 5px;
+}
+
+.playlist-items::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.playlist-items::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
 }
 
 .playlist-item {
-  padding: 8px;
-  font-size: 13px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+    padding: 10px;
+    font-size: 13px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .playlist-item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(3px);
 }
 
 .playlist-item.current {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: var(--neutral);
+    background-color: var(--neutral);
+    color: #000;
+    font-weight: 500;
+    padding-left: 12px;
+    position: relative;
+}
+
+.playlist-item.current::before {
+    content: '▶';
+    position: absolute;
+    left: 6px;
+    font-size: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.7;
 }
 
 .c {
-  position: relative;
+    position: relative;
 }
 
-  /* Responsive Styles */
+/* Responsive Styles */
 @media screen and (max-width: 768px) {
-
-  .container .a {
-    font-size: 1rem;
-  }
+    .container .a {
+        font-size: 1.1rem;
+        left: 10%;
+    }
   
+    .music-controls {
+        width: 250px;
+    }
 }
 
 @media screen and (max-width: 480px) {
+    .navbar {
+        transition: transform 0.3s ease-in-out;
+        width: 100%;
+        height: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        padding: 0.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
-  .navbar {
-    transition: transform 0.3s ease-in-out;
-    width: fit-content;
-    height: fit-content;
-  }
+    .navbar.hidden {
+        transform: translateY(-100%);
+    }
 
-  .navbar.hidden {
-    transform: translateY(-100%);
-  }
+    .container {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        height: auto;
+        padding: 0.5rem;
+        align-items: center;
+    }
 
-  .container {
-    /* flex-direction: column; */
-    height: auto;
-    padding: 1rem 0;
-  }
+    .container .a {
+        position: relative;
+        grid-column: 1;
+        transform: none;
+        font-size: 1rem;
+        margin: 0;
+        top: 0;
+        left: 5px;
+        padding-left: 5px;
+    }
 
-  .container .a {
-      position: static;
-      transform: none;
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-  }
+    .container .b {
+        position: relative;
+        grid-column: 2;
+        transform: none;
+        display: flex;
+        flex-direction: row;
+        gap: 1.5rem;
+        justify-content: center;
+        top: 0;
+        left: 0;
+    }
 
-  .container .b {
-      position: static;
-      transform: none;
-      flex-direction: column;
-      gap: 1rem;
-  }
+    .container .c {
+        position: relative;
+        grid-column: 3;
+        transform: none;
+        margin: 0;
+        width: 3rem;
+        display: flex;
+        justify-content: flex-end;
+        top: 0;
+        right: 5px;
+    }
 
-  .container .c {
-      position: static;
-      transform: none;
-      margin-top: 1rem;
-  }
-
-  .navbar .b {
-      gap: 1rem;
-  }
-
-  .navbar {
-      padding: 1rem;
-      /* flex-direction: column; */
-      align-items: center;
-      /* background-color: rgba(0, 0, 0, 0.8); */
-  }
-  .container .a {
-      font-size: 1.2rem;
-  }
-
-  .container .b {
-      gap: 1.2rem;
-  }
-
-  .container .c img {
-      width: 3rem;
-  }
-
-  .navbar .b p {
-      font-size: 1rem;
-  }
+    .navbar .b p {
+        font-size: 0.9rem;
+    }
+  
+    .music-controls {
+        right: -10px;
+        width: 260px;
+        max-width: 90vw;
+    }
 }

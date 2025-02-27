@@ -44,15 +44,17 @@ const NavItem = ({ children, onClick, activeView, view }) => {
   );
 };
 
-// MusicControls component remains the same
+// Updated MusicControls component with clickable playlist items
 const MusicControls = ({ 
   isPlaying, 
   onTogglePlay, 
   isVisible, 
   currentSong,
   onNextTrack,
+  onPrevTrack,
   playlist,
-  currentIndex 
+  currentIndex,
+  onSelectTrack 
 }) => {
   return (
     <div 
@@ -64,6 +66,13 @@ const MusicControls = ({
         <p className="song-name">{currentSong?.title || 'Loading...'}</p>
       </div>
       <div className="control-buttons">
+        <button 
+          className="control-button"
+          onClick={onPrevTrack}
+          type="button"
+        >
+          Prev
+        </button>
         <button 
           className="control-button"
           onClick={onTogglePlay}
@@ -86,6 +95,8 @@ const MusicControls = ({
             <div 
               key={song.id} 
               className={`playlist-item ${index === currentIndex ? 'current' : ''}`}
+              onClick={() => onSelectTrack(index)}
+              style={{ cursor: 'pointer' }}
             >
               {song.title}
             </div>
@@ -99,19 +110,20 @@ const MusicControls = ({
 const Navbar = ({ onWorkClick, onAboutClick, activeView }) => {
   const [hidden, setHidden] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
-  // New state to track user's intended playback state
+  // State to track user's intended playback state
   const [userWantsPlaying, setUserWantsPlaying] = useState(true);
   const [showMusicControls, setShowMusicControls] = useState(false);
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
+  const [playerReady, setPlayerReady] = useState(false);
   const lastScrollY = useRef(0);
   const playerRef = useRef(null);
   const controlsTimeoutRef = useRef(null);
 
   const { isModalOpen } = useModal();
 
-  // Updated modal effect to respect user's playback preference
+  // Modal effect to respect user's playback preference
   useEffect(() => {
-    if (playerRef.current) {
+    if (playerRef.current && playerReady) {
       if (isModalOpen) {
         playerRef.current.pauseVideo();
         setIsPlaying(false);
@@ -123,8 +135,9 @@ const Navbar = ({ onWorkClick, onAboutClick, activeView }) => {
         }
       }
     }
-  }, [isModalOpen, userWantsPlaying]);
+  }, [isModalOpen, userWantsPlaying, playerReady]);
 
+  // Handle external audio interruptions
   useEffect(() => {
     const handleOtherAudioPlay = (event) => {
       if (event.target !== playerRef.current) {
@@ -172,7 +185,7 @@ const Navbar = ({ onWorkClick, onAboutClick, activeView }) => {
       playerRef.current = new window.YT.Player('youtube-player', {
         height: '0',
         width: '0',
-        videoId: PLAYLIST[0].id,
+        videoId: PLAYLIST[currentSongIndex].id,
         playerVars: {
           autoplay: 1,
           controls: 0,
@@ -181,15 +194,22 @@ const Navbar = ({ onWorkClick, onAboutClick, activeView }) => {
         },
         events: {
           onReady: (event) => {
-            if (userWantsPlaying) {
+            setPlayerReady(true);
+            if (userWantsPlaying && !isModalOpen) {
               event.target.playVideo();
             }
           },
           onStateChange: (event) => {
             setIsPlaying(event.data === window.YT.PlayerState.PLAYING);
+            // Handle end of track
             if (event.data === window.YT.PlayerState.ENDED) {
               handleNextTrack();
             }
+          },
+          onError: (event) => {
+            console.error("YouTube Player Error:", event.data);
+            // If a video fails, try the next one
+            handleNextTrack();
           }
         }
       });
@@ -198,7 +218,7 @@ const Navbar = ({ onWorkClick, onAboutClick, activeView }) => {
 
   // Updated to track both actual and intended state
   const handlePlayPause = () => {
-    if (playerRef.current) {
+    if (playerRef.current && playerReady) {
       if (isPlaying) {
         playerRef.current.pauseVideo();
         setUserWantsPlaying(false);
@@ -210,13 +230,49 @@ const Navbar = ({ onWorkClick, onAboutClick, activeView }) => {
   };
 
   const handleNextTrack = () => {
-    if (playerRef.current) {
+    if (playerRef.current && playerReady) {
       const nextIndex = (currentSongIndex + 1) % PLAYLIST.length;
       setCurrentSongIndex(nextIndex);
       playerRef.current.loadVideoById(PLAYLIST[nextIndex].id);
       // Maintain the user's playback preference when changing tracks
       if (userWantsPlaying && !isModalOpen) {
-        playerRef.current.playVideo();
+        setTimeout(() => {
+          playerRef.current.playVideo();
+        }, 100);
+      }
+    }
+  };
+
+  const handlePrevTrack = () => {
+    if (playerRef.current && playerReady) {
+      // If we're more than 3 seconds into the song, restart it instead of going to previous
+      const currentTime = playerRef.current.getCurrentTime();
+      if (currentTime > 3) {
+        playerRef.current.seekTo(0);
+      } else {
+        // Go to previous song with wraparound
+        const prevIndex = (currentSongIndex - 1 + PLAYLIST.length) % PLAYLIST.length;
+        setCurrentSongIndex(prevIndex);
+        playerRef.current.loadVideoById(PLAYLIST[prevIndex].id);
+        // Maintain the user's playback preference when changing tracks
+        if (userWantsPlaying && !isModalOpen) {
+          setTimeout(() => {
+            playerRef.current.playVideo();
+          }, 100);
+        }
+      }
+    }
+  };
+
+  const handleSelectTrack = (index) => {
+    if (playerRef.current && playerReady && index !== currentSongIndex) {
+      setCurrentSongIndex(index);
+      playerRef.current.loadVideoById(PLAYLIST[index].id);
+      // Maintain the user's playback preference when changing tracks
+      if (userWantsPlaying && !isModalOpen) {
+        setTimeout(() => {
+          playerRef.current.playVideo();
+        }, 100);
       }
     }
   };
@@ -243,7 +299,7 @@ const Navbar = ({ onWorkClick, onAboutClick, activeView }) => {
         clearTimeout(controlsTimeoutRef.current);
       }
       window.removeEventListener('scroll', handleScroll);
-      if (playerRef.current) {
+      if (playerRef.current && playerRef.current.destroy) {
         playerRef.current.destroy();
       }
     };
@@ -279,12 +335,16 @@ const Navbar = ({ onWorkClick, onAboutClick, activeView }) => {
               src='/Grey-Red-Logo.webp' 
               alt="Back" 
               onClick={handlePlayPause}
+              // Add the 'spinning' class only when music is playing
+              className={isPlaying ? 'spinning' : ''}
               style={{ cursor: 'pointer' }}
             />
             <MusicControls 
               isPlaying={isPlaying}
               onTogglePlay={handlePlayPause}
               onNextTrack={handleNextTrack}
+              onPrevTrack={handlePrevTrack}
+              onSelectTrack={handleSelectTrack}
               isVisible={showMusicControls}
               currentSong={PLAYLIST[currentSongIndex]}
               playlist={PLAYLIST}
