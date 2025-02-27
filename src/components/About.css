@@ -234,7 +234,7 @@ body {
 }
 
 .contact-item:hover{
-    border: 2px solid white;
+    border: 2px solid var(--yang);
 }
 
 .contact-item:hover .contact-icon {

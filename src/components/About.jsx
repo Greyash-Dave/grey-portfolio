@@ -214,22 +214,21 @@ const About = () => {
         >
           <h2 className="section-title">About Me</h2>
           <div className="text-block">
-            <p>
-              I'm a passionate tech enthusiast with a deep commitment to advancing technology through innovative 
-              software development and artificial intelligence. With over ten months of hands-on experience in 
-              full-stack development, I've cultivated a robust skill set that spans web technologies, machine learning, 
-              and computer vision.
-            </p>
-            <p>
-              My technical journey is driven by an insatiable curiosity and a strategic approach to problem-solving. 
-              I specialize in leveraging modern frameworks like React.js and Node.js, combined with AI technologies 
-              in Python, to create scalable and intelligent solutions that push the boundaries of what's possible.
-            </p>
-            <p>
-              As an emerging professional, I'm committed to continuous learning and collaborative growth. My goal is 
-              to contribute meaningfully to projects that blend cutting-edge technology with user-centric design, 
-              ultimately making a positive impact in the tech ecosystem.
-            </p>
+          <p>
+            I'm a passionate tech enthusiast dedicated to advancing technology through innovative software development 
+            and artificial intelligence. With over a year of hands-on experience in full-stack development, I have built and 
+            contributed to various projects, including web applications, AI-powered tools, and interactive experiences.
+          </p>
+          <p>
+            My expertise spans modern web technologies like React.js, Node.js, and PostgreSQL, alongside AI-driven solutions 
+            using Python, OpenCV, and machine learning frameworks. Notable projects include a full-stack Pokémon card game, 
+            an AI-powered video-to-short converter, and a gesture-based gaming system leveraging computer vision.
+          </p>
+          <p>
+            I thrive on solving complex problems with scalable and intelligent solutions. My approach combines deep technical 
+            knowledge with a strong emphasis on user experience and performance optimization. As a continuous learner, I'm always 
+            exploring new technologies to push boundaries and create impactful solutions in the tech ecosystem.
+          </p>
           </div>
         </motion.div>
 
