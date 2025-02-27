@@ -65,7 +65,7 @@
 
 .home1 .workdesc-card-container.in-view {
     opacity: 1;
-    z-index: 1000;
+    z-index: 1;
     /* background-color: antiquewhite; */
 }
 

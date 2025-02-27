@@ -93,7 +93,7 @@ const About = () => {
         },
         {
             icon: FileText,
-            href: 'https://greyash-dave.github.io/Digital-Resume/',
+            href: 'https://drive.google.com/file/d/1YmFAbKg7uQ-iPyiDD7xe1ASCwqlf94yM/view',
             color: 'green'
         }
     ];
