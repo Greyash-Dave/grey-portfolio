@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { HashRouter , Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { ModalProvider } from './components/ModalContext';
 import Work from './components/Work';
 import About from "./components/About";
@@ -144,9 +144,9 @@ function MainContent({ view }) {
 export default function AppWrapper() {
   return (
     <ModalProvider>
-      <BrowserRouter>
+      <HashRouter>
         <App />
-      </BrowserRouter>
+        </HashRouter>
     </ModalProvider>
   );
 }
