@@ -30,68 +30,95 @@ import Y12_2Img from '../assets/y12_2.webp';
 import OpenTurfLogoImg from '../assets/openturf-logo.webp';
 import Sei1Img from '../assets/sei_1.webp';
 import Sei2Img from '../assets/sei_2.webp';
+import ShortifyImg from '../assets/s1.webp';
+import SImg from '../assets/s2.webp';
+import YtScraperImg from '../assets/yts1.webp';
+import Mg1Img from '../assets/mg1.webp';
 
 // Project details with imported images
 const projectDetails = [
   {
     title: "Pokemon Card Game",
-    description: "Interactive web-based Pokémon battle simulator using PokeAPI. Developed using technologies like React.js Node.js and PostgreSQL.",
+    description: "Interactive web-based Pokémon battle simulator using PokeAPI. Developed using technologies like React.js, Node.js, and PostgreSQL with secure user authentication and serverless architecture.",
     src: PokemonGameImg,
-    timeline: "Jul 2024 - Sep 2024",
+    timeline: "Mar 2024 - Sep 2024",
     liveLink: 'https://pokemon-card-game-client.vercel.app',
     youtubeLink: "https://www.youtube.com/watch?v=v021D_MnzvY",
+    githubLink: 'https://github.com/Greyash-Dave/Pokemon-Card-Game',
     images: [PokemonGameImg, PbgImg]
   },
-  { 
-    title: 'Citizen & Constitution', 
-    description: "Gamified learning platform featuring a Renpy-based visual novel game and MVP Gamified Learning Web Platform",
+  {
+    title: "Shortify",
+    description: "AI-powered video processing tool that converts long-form content into 9:16 shorts with AI-driven captioning and face tracking.",
+    src: ShortifyImg,
+    timeline: '2024',
+    liveLink: 'https://github.com/Greyash-Dave/shortify',
+    youtubeLink: 'https://www.youtube.com/watch?v=NynlLpj6_SE',
+    githubLink: 'https://github.com/Greyash-Dave/shortify',
+    images: [ShortifyImg, SImg]
+  },
+  {
+    title: "Minigrep",
+    description: "Command-line utility written in Rust for searching text patterns in files, featuring customizable output, case sensitivity, and colored highlights.",
+    src: Mg1Img,
+    timeline: '2024',
+    liveLink: 'https://github.com/Greyash-Dave/minigrep',
+    youtubeLink: 'https://www.youtube.com/watch?v=Br-xK8r5UQ0',
+    githubLink: 'https://github.com/Greyash-Dave/minigrep',
+    images: [Mg1Img]
+  },
+  {
+    title: "YouTube Scraper",
+    description: "Full-stack YouTube analytics dashboard with real-time data using Flask, React, and YouTube Data API.",
+    src: YtScraperImg,
+    timeline: '2024',
+    liveLink: 'https://media-scrapper-app.vercel.app',
+    youtubeLink: 'https://youtu.be/Ec6fSGSY0Ls',
+    githubLink: 'https://github.com/Greyash-Dave/media-scrapper-app',
+    images: [YtScraperImg]
+  },
+  {
+    title: "Citizen & Constitution",
+    description: "Gamified learning platform featuring a Ren'Py-based visual novel game and an MVP for Gamified Learning Web Platform.",
     src: CitizenConstitutionImg,
     timeline: 'Sep 2024 - Sep 2024',
     liveLink: 'https://grey-citizen-and-constitution.vercel.app',
     youtubeLink: 'https://studio.youtube.com/watch?v=OO9dnwtZrN4',
     demoLink: 'https://www.linkedin.com/posts/gresham-dave_sih2024-constitutionaleducation-panimalarengineeringcollege-activity-7280440194489622528-NIeB?utm_source=share&utm_medium=member_desktop',
-    images: [CitizenConstitutionImg, Cac1Img, Cac2Img]
+    githubLink: 'https://github.com/Greyash-Dave/Citizen-Constitution-GamifiedPlatform',
+    images: [Cac1Img, Cac2Img]
   },
-  { 
-    title: "Reader's Viewpoint", 
-    description: "an ePub reader offering a highly user customizability and adfree reading experience",
+  {
+    title: "Reader's Viewpoint",
+    description: "An ePub reader offering a highly user-customizable and ad-free reading experience.",
     src: ReadersViewpointIMG,
     timeline: 'Nov 2024 - Nov 2024',
     liveLink: 'https://readers-viewpoint.vercel.app',
     youtubeLink: 'https://www.youtube.com/watch?v=10hgdNmQjWU',
+    githubLink: 'https://github.com/Greyash-Dave/Readers-Viewpoint',
     images: [Rv1, Rv2]
   },
-  { 
-    title: 'Space Y', 
-    description: "Recreation of SpaceX's Homepage using React.js.",
-    src: SpaceYImg,
-    timeline: 'Aug 2024 - Aug 2024',
-    liveLink: 'https://space-y-delta.vercel.app',
-    demoLink: 'https://www.linkedin.com/posts/gresham-dave_frontenddevelopment-spacex-webdevelopment-activity-7233333524634746880-KlJu?utm_source=share&utm_medium=member_desktop',
-    youtubeLink: 'https://studio.youtube.com/watch?v=EqA1cD5CtJM',
-    images: [SpaceYImg, SyImg]
-  },
-  { 
-    title: 'PEC Homepage', 
-    description: "PEC Homepage redesign with features like announcements and event updates using React.js.",
-    src: PanimarImg,
-    timeline: 'Aug 2024 - Aug 2024',
-    liveLink: 'https://pec-home-page.vercel.app',
-    demoLink: 'https://www.linkedin.com/posts/gresham-dave_webdevelopment-reactjs-css-activity-7227708134973157376-zOV1?utm_source=share&utm_medium=member_desktop',
-    youtubeLink: 'https://youtube.com/watch?v=khY8_HCry00/edit',
-    images: [PanimarImg, PhImg]
-  },
-  { 
-    title: 'ACE', 
-    description: "Gesture-based interactive gameplay system using Python, OpenCV, and Unity, featuring a Flappy Bird integration.",
+  {
+    title: "ACE",
+    description: "Gesture-based interactive gameplay system using Python, OpenCV, and Unity, featuring a Flappy Bird integration with 95% recognition accuracy.",
     src: FlappyImg,
     timeline: 'Apr 2023 - Apr 2023',
     liveLink: 'https://github.com/Greyash-Dave/ACE',
     demoLink: 'https://www.linkedin.com/posts/gresham-dave_computervision-flappybird-gestureinput-activity-7225515334332506112-d_Gy?utm_source=share&utm_medium=member_desktop',
     youtubeLink: 'https://studio.youtube.com/watch?v=EIRNBOqlXN0',
+    githubLink: 'https://github.com/Greyash-Dave/ACE',
     images: [FlappyImg, AImg]
   },
-  { 
+  {
+    title: 'Openpedia Contribution',
+    description: "Contributed to Openpedia during CSSOC, improving functionality and user experience using HTML, CSS, and JavaScript.",
+    src: OpenpediaImg,
+    timeline: 'Aug 2024',
+    liveLink: 'https://github.com/Greyash-Dave/Openpedia',
+    githubLink: 'https://github.com/Greyash-Dave/Openpedia',
+    images: [OpenpediaImg]
+  },
+  {
     title: '...', 
     description: '...upcoming',
     src: UpcomingImg,
@@ -99,6 +126,8 @@ const projectDetails = [
     images: [UpcomingImg]
   }
 ];
+
+
 
 // Experience details for modal
 const experienceDetails = [
