@@ -155,7 +155,7 @@ const GalaxyBackground = () => {
     const addCodeSprites = () => {
       const codeSpritesGroup = new THREE.Group();
       // Only add ~200 code sprites for performance (much less than particles)
-      const codeSpritesCount = 2500;
+      const codeSpritesCount = 100;
       
       for (let i = 0; i < codeSpritesCount; i++) {
         // Determine text element
