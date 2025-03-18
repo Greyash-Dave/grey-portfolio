@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, ChevronLeft, ChevronRight, Linkedin, X } from 'lucide-react';
+import { ExternalLink, ChevronLeft, ChevronRight, Linkedin, X, Github } from 'lucide-react';
 import './WorkDesc.css';
 
 const WorkDesc = ({ 
@@ -9,6 +9,7 @@ const WorkDesc = ({
   timeline, 
   liveLink, 
   demoLink, 
+  githubLink,
   youtubeLink, 
   images 
 }) => {
@@ -109,6 +110,17 @@ const WorkDesc = ({
                   className="work-desc-live-link"
                 >
                   <ExternalLink className="link-icon"/> Live Site
+                </a>
+              )}
+              
+              {githubLink && (
+                <a 
+                  href={githubLink} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="work-desc-github-link"
+                >
+                  <Github className="link-icon"/> GitHub
                 </a>
               )}
               

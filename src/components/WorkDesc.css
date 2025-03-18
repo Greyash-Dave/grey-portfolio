@@ -179,7 +179,7 @@
 .work-desc-github-link {
   display: flex;
   align-items: center;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.5rem;
   border-radius: 0.5rem;
   text-decoration: none;
   transition: all 0.3s ease;
@@ -187,17 +187,20 @@
 }
 
 .work-desc-live-link {
-  background-color: var(--primary-color);
+  background-color: var(--yin);
   color: white;
+  border: var(--yang) solid 2px;
+
 }
 
 .work-desc-github-link {
-  background-color: var(--secondary-color);
+  background-color: var(--yin);
   color: white;
+  border: var(--yang) solid 2px;
 }
 
 .work-desc-live-link:hover {
-  background-color: var(--secondary-color);
+  background-color: var(--primary-color);
   transform: translateY(-3px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

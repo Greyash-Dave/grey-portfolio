@@ -44,7 +44,7 @@ const projectDetails = [
     timeline: "Mar 2024 - Sep 2024",
     liveLink: 'https://pokemon-card-game-client.vercel.app',
     youtubeLink: "https://www.youtube.com/watch?v=v021D_MnzvY",
-    githubLink: 'https://github.com/Greyash-Dave/Pokemon-Card-Game',
+    // githubLink: 'https://github.com/Greyash-Dave/Pokemon-Card-Game',
     images: [PokemonGameImg, PbgImg]
   },
   {
@@ -52,7 +52,6 @@ const projectDetails = [
     description: "AI-powered video processing tool that converts long-form content into 9:16 shorts with AI-driven captioning and face tracking.",
     src: ShortifyImg,
     timeline: '2024',
-    liveLink: 'https://github.com/Greyash-Dave/shortify',
     youtubeLink: 'https://www.youtube.com/watch?v=NynlLpj6_SE',
     githubLink: 'https://github.com/Greyash-Dave/shortify',
     images: [ShortifyImg, SImg]
@@ -62,7 +61,6 @@ const projectDetails = [
     description: "Command-line utility written in Rust for searching text patterns in files, featuring customizable output, case sensitivity, and colored highlights.",
     src: Mg1Img,
     timeline: '2024',
-    liveLink: 'https://github.com/Greyash-Dave/minigrep',
     youtubeLink: 'https://www.youtube.com/watch?v=Br-xK8r5UQ0',
     githubLink: 'https://github.com/Greyash-Dave/minigrep',
     images: [Mg1Img]
@@ -98,6 +96,26 @@ const projectDetails = [
     githubLink: 'https://github.com/Greyash-Dave/Readers-Viewpoint',
     images: [Rv1, Rv2]
   },
+   // {
+  //   title: "Space Y",
+  //   description: "Recreation of SpaceX's Homepage using React.js.",
+  //   src: SpaceYImg,
+  //   timeline: 'Aug 2024 - Aug 2024',
+  //   liveLink: 'https://space-y-delta.vercel.app',
+  //   demoLink: 'https://www.linkedin.com/posts/gresham-dave_frontenddevelopment-spacex-webdevelopment-activity-7233333524634746880-KlJu?utm_source=share&utm_medium=member_desktop',
+  //   youtubeLink: 'https://studio.youtube.com/watch?v=EqA1cD5CtJM',
+  //   images: [SpaceYImg, SyImg]
+  // },
+  // {
+  //   title: "PEC Homepage",
+  //   description: "PEC Homepage redesign with features like announcements and event updates using React.js.",
+  //   src: PanimarImg,
+  //   timeline: 'Aug 2024 - Aug 2024',
+  //   liveLink: 'https://pec-home-page.vercel.app',
+  //   demoLink: 'https://www.linkedin.com/posts/gresham-dave_webdevelopment-reactjs-css-activity-7227708134973157376-zOV1?utm_source=share&utm_medium=member_desktop',
+  //   youtubeLink: 'https://youtube.com/watch?v=khY8_HCry00/edit',
+  //   images: [PanimarImg, PhImg]
+  // },
   {
     title: "ACE",
     description: "Gesture-based interactive gameplay system using Python, OpenCV, and Unity, featuring a Flappy Bird integration with 95% recognition accuracy.",
@@ -108,15 +126,6 @@ const projectDetails = [
     youtubeLink: 'https://studio.youtube.com/watch?v=EIRNBOqlXN0',
     githubLink: 'https://github.com/Greyash-Dave/ACE',
     images: [FlappyImg, AImg]
-  },
-  {
-    title: 'Openpedia Contribution',
-    description: "Contributed to Openpedia during CSSOC, improving functionality and user experience using HTML, CSS, and JavaScript.",
-    src: OpenpediaImg,
-    timeline: 'Aug 2024',
-    liveLink: 'https://github.com/Greyash-Dave/Openpedia',
-    githubLink: 'https://github.com/Greyash-Dave/Openpedia',
-    images: [OpenpediaImg]
   },
   {
     title: '...', 
@@ -149,7 +158,7 @@ const experienceDetails = [
   { 
     title: 'Yesist12 Finalist', 
     description: 'Recognized as a finalist in the Yesist12 innovation competition, demonstrating technical excellence.',
-    src: YesistImg, 
+    src: Y12_2Img, 
     timeline: 'Sep 2023',
     demoLink: 'https://www.linkedin.com/posts/gresham-dave_yesist12-innovation-outdooradvertising-activity-7225732844503846912-ZkI0?utm_source=share&utm_medium=member_desktop',
     youtubeLink: 'https://studio.youtube.com/watch?v=lgkoDlln6TU/edit',
@@ -259,6 +268,7 @@ export const ModalProvider = ({ children }) => {
         liveLink={project.liveLink}
         demoLink={project.demoLink}
         youtubeLink={project.youtubeLink}
+        githubLink= {project.githubLink}
         images={project.images}
       />
     );
