@@ -329,10 +329,10 @@ const MatrixBackground = () => {
       const deltaTime = elapsedTime - lastUpdateTime;
       
       // Camera animation (move closer after 3 seconds)
-      if (cameraAnimated && camera.position.z > 2.5) {
+      if (cameraAnimated && camera.position.z > 3.5) {
         camera.position.z -= 0.05; // Gradually move camera closer
-        if (camera.position.z <= 2.5) {
-          camera.position.z = 2.5; // Ensure it stops exactly at 2.5
+        if (camera.position.z <= 3.5) {
+          camera.position.z = 3.5; // Ensure it stops exactly at 2.5
         }
       }
 
