@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { HashRouter , Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { HashRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { ModalProvider } from './components/ModalContext';
 import Work from './components/Work';
 import About from "./components/About";
@@ -51,19 +51,8 @@ function App() {
 
   return (
     <div style={{ position: 'relative', minHeight: '100vh' }}>
-      {/* Page Loader */}
-      {isLoading && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          zIndex: 9999
-        }}>
-          <PageLoader />
-        </div>
-      )}
+      {/* PageLoader that will create the transition effect and then remove itself */}
+      <PageLoader isLoading={isLoading} />
 
       {/* Render content with routing */}
       <div style={{ 
@@ -81,11 +70,15 @@ function App() {
   );
 }
 
+
 // Content component with Lenis scroll handling
 function MainContent({ view }) {
   const location = useLocation();
   const navigate = useNavigate();
   const scrollContainerRef = useRef(null);
+  const [contentLoaded, setContentLoaded] = useState(false);
+  
+  // Rest of your MainContent function unchanged...
   
   // Setup Lenis and handle route changes
   useEffect(() => {
@@ -107,7 +100,75 @@ function MainContent({ view }) {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollTop = 0;
     }
+    
+    // Set content as loaded after route change
+    setContentLoaded(true);
   }, [location.pathname]);
+
+  // Smooth auto-scroll effect for work page
+  useEffect(() => {
+    if (contentLoaded && view === 'work') {
+      // Wait 3 seconds after content is loaded
+      const scrollTimeout = setTimeout(() => {
+        // Determine scroll distance - adjust this value as needed
+        const scrollDistance = window.innerHeight * 0.55; // Scroll down 30% of viewport height
+        
+        // Improved smooth scrolling using Lenis if available
+        const lenis = window?.Lenis || window?.lenis;
+        if (lenis) {
+          try {
+            // Use a longer duration and smoother easing for more gentle scroll
+            lenis.scrollTo(scrollDistance, { 
+              duration: 2.8, // Longer duration for smoother scroll
+              easing: (t) => { 
+                // Custom easing function for a gentler start and finish
+                // This is a modified ease-in-out cubic function
+                return t < 0.5 
+                  ? 4 * t * t * t 
+                  : 1 - Math.pow(-2 * t + 2, 3) / 2;
+              }
+            });
+          } catch (error) {
+            console.warn('Lenis auto-scroll failed:', error);
+            // Fallback to standard window scroll with custom animation
+            smoothScrollTo(scrollDistance, 2800); // 2.8 seconds
+          }
+        } else {
+          // Custom smooth scroll implementation as fallback
+          smoothScrollTo(scrollDistance, 2800); // 2.8 seconds
+        }
+      }, 1000); // 3 second delay
+      
+      // Clean up
+      return () => clearTimeout(scrollTimeout);
+    }
+  }, [contentLoaded, view]);
+
+  // Custom smooth scroll function with requestAnimationFrame for smoother animation
+  const smoothScrollTo = (targetPosition, duration) => {
+    const startPosition = window.pageYOffset;
+    const distance = targetPosition - startPosition;
+    let startTime = null;
+
+    function animation(currentTime) {
+      if (startTime === null) startTime = currentTime;
+      const timeElapsed = currentTime - startTime;
+      const progress = Math.min(timeElapsed / duration, 1);
+      
+      // Easing function - cubic ease-in-out for smoother movement
+      const easeInOutCubic = progress < 0.5 
+        ? 4 * progress * progress * progress 
+        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      
+      window.scrollTo(0, startPosition + distance * easeInOutCubic);
+      
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animation);
+      }
+    }
+    
+    requestAnimationFrame(animation);
+  };
 
   const handleNavigation = (path) => {
     // Use navigate from react-router-dom
@@ -146,7 +207,7 @@ export default function AppWrapper() {
     <ModalProvider>
       <HashRouter>
         <App />
-        </HashRouter>
+      </HashRouter>
     </ModalProvider>
   );
 }

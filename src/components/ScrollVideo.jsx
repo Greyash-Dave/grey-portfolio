@@ -2,365 +2,456 @@ import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { motion } from 'framer-motion';
 
-const GalaxyBackground = () => {
+const MatrixBackground = () => {
   const containerRef = useRef(null);
   const sceneRef = useRef(null);
   const cameraRef = useRef(null);
   const rendererRef = useRef(null);
-  const galaxyRef = useRef(null);
-  const codeSpritesRef = useRef(null);
-  const starsRef = useRef(null);
+  const raindropGroupsRef = useRef([]);
   const mousePosition = useRef({ x: 0, y: 0 });
+  const animationFrameRef = useRef(null);
 
   useEffect(() => {
     // Scene setup
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2('rgb(2, 19, 45)', 0.035);
+    scene.fog = new THREE.FogExp2('rgb(2, 19, 45)', 0.15);
     sceneRef.current = scene;
 
     // Camera setup
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 5;
+    camera.position.z = 5; // Start with camera further away
     cameraRef.current = camera;
 
     // Renderer setup
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ 
+      antialias: true, 
+      alpha: true,
+      powerPreference: 'high-performance' // Request high performance GPU
+    });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor('rgb(2, 19, 45)', 1);
+    // Use a lower pixel ratio for better performance
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.setClearColor('rgb(2, 19, 45)', 1); // Deep Midnight Blue background
     containerRef.current.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    // Galaxy parameters tailored to your color scheme
+    // Matrix parameters - with updated color scheme and increased clarity
     const parameters = {
-      count: 12000,
-      size: 0.02,
-      radius: 6,
-      branches: 5,
-      spin: 1.2,
-      randomness: 0.65,
-      randomnessPower: 3,
-      insideColor: 'rgb(249, 122, 89)', // --yang: Vibrant Coral Orange
-      outsideColor: 'rgb(2, 19, 45)',   // --yin: Deep Midnight Blue
-      secondaryColor: 'rgb(253, 204, 94)' // --neutral: Bright Yellow
+      columns: Math.min(50, Math.floor(window.innerWidth / 25)), // Reduced column count for clarity
+      rows: 40, // Reduced row count
+      columnWidth: 0.25, // Slightly wider columns for better spacing
+      fallingSpeed: 0.03,
+      mainColor: 'rgb(249, 122, 89)', // Vibrant Coral Orange (yang)
+      highlightColor: 'rgb(253, 204, 94)', // Vibrant Yellow (neutral)
+      dimColor: 'rgba(249, 122, 89, 0.7)', // Less transparency for better visibility
+      characterChangeSpeed: 0.02,
+      characterSize: 0.32, // Increased size for larger, more visible characters
+      particleSize: 0.08, // Size for trailing particles
+      particlesPerDrop: 3, // Number of particles per raindrop
+      particleSpacing: 0.2 // Spacing between particles
     };
 
-    // Programming keywords and ASCII characters (selected shorter ones for performance)
+    // Reduced set of programming keywords - fewer unique textures
     const codeElements = [
-      // Short programming keywords
-      'if', 'for', 'let', 'var', 'try', 'async', 'void', 'new', 'this', 'map',
+      // Languages
+      'JavaScript', 'Python', 'Java', 'Rust', 'C', 'C#', 'Bash', 'Shell', 'HTML', 'CSS',
       
-      // ASCII symbols - common in programming
-      '{', '}', '[', ']', '(', ')', '<', '>', '=', '+', '-', '*', '/', '%', '!',
-      
-      // Short HTML tags
-      '<div>', '<h1>', '<p>', '<a>', '<img>',
-      
-      // Math symbols
-      '∑', '∏', '∫', '√', '∞', 'π', 'θ', 'λ'
+      // Databases
+      'PostgreSQL', 'Supabase', 'MySQL',
+    
+      // Frameworks
+      'React.js', 'Node.js', 'Express.js', 'Axios', 
+      'Lenis', 'Three.js', 'Pygame', 
+      'Ren\'Py', 'OpenCV',
+    
+      // Technologies
+      'Pandas', 'Numpy', 'Selenium', 
+      'Linux', 'NixOS', 'FFmpeg', 'Whisper',
+    
+      // Tools
+      'Git', 'Docker', 'Vim', 'Postman', 'Notion', 'Canva', 'Ollama', 
+      'VS Code', 'Unity', 'Blender',
+    
+      // Common symbols and operators
+      '{', '}', '[', ']', '(', ')', '<', '>', '=', '==', '!=', '+=', '-=', 
+      '&&', '||', '=>', ';', '.', ',',
+    
+      // HTML/CSS basics
+      '<div>', '</div>', '<p>', '</p>', '<span>', 'style', 'flex', 'grid'
     ];
+    
 
-    // Create text sprite function
-    const createTextSprite = (text, color = 0xffffff) => {
+    // Texture atlas approach - pre-create and reuse textures
+    const textureCache = {};
+    
+    const getTextTexture = (text, color = parameters.mainColor) => {
+      const key = `${text}_${color}`;
+      
+      if (textureCache[key]) {
+        return textureCache[key];
+      }
+      
       const canvas = document.createElement('canvas');
       const context = canvas.getContext('2d');
-      canvas.width = 128;
-      canvas.height = 64;
-
-      context.font = '14px monospace';
+      canvas.width = 256; // Increased for higher resolution textures
+      canvas.height = 128; // Increased for higher resolution textures
+      
+      context.fillStyle = 'rgba(0, 0, 0, 0)'; // Transparent background
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Use a bolder font with increased size
+      context.font = 'bold 46px monospace'; // Increased font size and made bold
       context.textAlign = 'center';
       context.textBaseline = 'middle';
-      context.fillStyle = new THREE.Color(color).getStyle();
+      
+      // Add slight text shadow for better contrast against background
+      context.shadowColor = 'rgba(0, 0, 0, 0.8)';
+      context.shadowBlur = 8;
+      context.shadowOffsetX = 1;
+      context.shadowOffsetY = 1;
+      
+      // Fill with color
+      context.fillStyle = color;
+      
+      // Draw text twice for extra boldness
       context.fillText(text, canvas.width / 2, canvas.height / 2);
-
-      // Canvas contents will be used for a texture
+      context.fillText(text, canvas.width / 2, canvas.height / 2);
+      
       const texture = new THREE.Texture(canvas);
       texture.needsUpdate = true;
-
-      // Create sprite material and sprite
-      const spriteMaterial = new THREE.SpriteMaterial({
-        map: texture,
-        transparent: true,
-        alphaTest: 0.1
-      });
-
-      return spriteMaterial;
+      
+      // Store in cache
+      textureCache[key] = texture;
+      
+      return texture;
     };
 
-    // Create galaxy particles (main component)
-    const generateGalaxy = () => {
-      // Create new geometry
-      const geometry = new THREE.BufferGeometry();
-      const positions = new Float32Array(parameters.count * 3);
-      const colors = new Float32Array(parameters.count * 3);
-
-      const colorInside = new THREE.Color(parameters.insideColor);
-      const colorOutside = new THREE.Color(parameters.outsideColor);
-      const colorSecondary = new THREE.Color(parameters.secondaryColor);
-
-      for (let i = 0; i < parameters.count; i++) {
-        const i3 = i * 3;
-
-        // Position
-        const radius = Math.random() * parameters.radius;
-        const spinAngle = radius * parameters.spin;
-        const branchAngle = (i % parameters.branches) / parameters.branches * Math.PI * 2;
-
-        const randomX = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
-        const randomY = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
-        const randomZ = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
-
-        positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX;
-        positions[i3 + 1] = randomY * 0.5; // Flatter galaxy
-        positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
-
-        // Color
-        let mixedColor;
-        // Add some secondary color (yellow) particles randomly
-        if (Math.random() > 0.92) {
-          mixedColor = colorSecondary.clone();
-        } else {
-          mixedColor = colorInside.clone();
-          mixedColor.lerp(colorOutside, radius / parameters.radius);
-        }
-
-        colors[i3] = mixedColor.r;
-        colors[i3 + 1] = mixedColor.g;
-        colors[i3 + 2] = mixedColor.b;
-      }
-
-      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-      // Material
-      const material = new THREE.PointsMaterial({
-        size: parameters.size,
-        sizeAttenuation: true,
-        depthWrite: false,
-        blending: THREE.AdditiveBlending,
-        vertexColors: true,
-        transparent: true,
-        alphaMap: new THREE.TextureLoader().load('https://threejs.org/examples/textures/sprites/disc.png'),
-      });
-
-      // Points
-      const points = new THREE.Points(geometry, material);
-      scene.add(points);
-      galaxyRef.current = points;
+    // Create particle texture (dot)
+    const getParticleTexture = (color = parameters.mainColor) => {
+      const key = `particle_${color}`;
       
-      return { geometry, material, points };
-    };
-    
-    // Add code sprites (sparingly)
-    const addCodeSprites = () => {
-      const codeSpritesGroup = new THREE.Group();
-      // Only add ~200 code sprites for performance (much less than particles)
-      const codeSpritesCount = 100;
-      
-      for (let i = 0; i < codeSpritesCount; i++) {
-        // Determine text element
-        const textIndex = Math.floor(Math.random() * codeElements.length);
-        const text = codeElements[textIndex];
-        
-        // Position - following same galaxy pattern as particles
-        const radius = Math.random() * parameters.radius;
-        const spinAngle = radius * parameters.spin;
-        const branchAngle = (i % parameters.branches) / parameters.branches * Math.PI * 2;
-
-        const randomX = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
-        const randomY = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
-        const randomZ = Math.pow(Math.random(), parameters.randomnessPower) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;
-
-        const x = Math.cos(branchAngle + spinAngle) * radius + randomX;
-        const y = randomY * 0.5; // Flatter galaxy
-        const z = Math.sin(branchAngle + spinAngle) * radius + randomZ;
-
-        // Color
-        let color;
-        // Add some secondary color particles randomly
-        if (Math.random() > 0.5) {
-          color = parameters.secondaryColor; // More yellow code characters for visibility
-        } else {
-          color = parameters.insideColor; // Coral color
-        }
-
-        // Create text sprite with determined color
-        const spriteMaterial = createTextSprite(text, color);
-        const sprite = new THREE.Sprite(spriteMaterial);
-        
-        // Set position
-        sprite.position.set(x, y, z);
-        
-        // Scale sprites
-        const scale = 0.15 + Math.random() * 0.1;
-        sprite.scale.set(scale, scale/2, scale);
-        
-        codeSpritesGroup.add(sprite);
+      if (textureCache[key]) {
+        return textureCache[key];
       }
       
-      scene.add(codeSpritesGroup);
-      codeSpritesRef.current = codeSpritesGroup;
-      return codeSpritesGroup;
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      canvas.width = 64;
+      canvas.height = 64;
+      
+      context.fillStyle = 'rgba(0, 0, 0, 0)'; // Transparent background
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw a circular dot
+      context.beginPath();
+      context.arc(canvas.width / 2, canvas.height / 2, canvas.width / 4, 0, Math.PI * 2);
+      context.fillStyle = color;
+      context.fill();
+      
+      // Add glow effect
+      context.shadowColor = color;
+      context.shadowBlur = 10;
+      context.shadowOffsetX = 0;
+      context.shadowOffsetY = 0;
+      context.beginPath();
+      context.arc(canvas.width / 2, canvas.height / 2, canvas.width / 4 - 2, 0, Math.PI * 2);
+      context.fill();
+      
+      const texture = new THREE.Texture(canvas);
+      texture.needsUpdate = true;
+      
+      // Store in cache
+      textureCache[key] = texture;
+      
+      return texture;
     };
 
-    // Add distant stars backdrop
-    const addDistantStars = () => {
-      const starsGeometry = new THREE.BufferGeometry();
-      const starsCount = 2000;
-      const starPositions = new Float32Array(starsCount * 3);
-      const starColors = new Float32Array(starsCount * 3);
+    // Create a more efficient raindrop material with stronger contrast
+    const createDropMaterial = (text, color = parameters.mainColor) => {
+      return new THREE.SpriteMaterial({
+        map: getTextTexture(text, color),
+        transparent: true,
+        alphaTest: 0.05, // Higher alpha test for crisper edges
+        blending: THREE.AdditiveBlending
+      });
+    };
+
+    // Create material for particles
+    const createParticleMaterial = (color = parameters.mainColor) => {
+      return new THREE.SpriteMaterial({
+        map: getParticleTexture(color),
+        transparent: true,
+        alphaTest: 0.1,
+        blending: THREE.AdditiveBlending
+      });
+    };
+
+    // Use instanced mesh approach for better performance
+    const createEfficientRaindrops = () => {
+      const raindropGroups = [];
+      const totalColumns = parameters.columns;
       
-      for (let i = 0; i < starsCount * 3; i += 3) {
-        // Position stars in a larger sphere around the scene
-        const radius = 30 + Math.random() * 70;
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos(2 * Math.random() - 1);
+      // Pre-compute some column properties for more efficiency
+      for (let col = 0; col < totalColumns; col++) {
+        // Create a group for each column - but with fewer sprites
+        const columnGroup = new THREE.Group();
+        columnGroup.position.x = (col - totalColumns / 2) * parameters.columnWidth;
         
-        starPositions[i] = radius * Math.sin(phi) * Math.cos(theta);
-        starPositions[i + 1] = radius * Math.sin(phi) * Math.sin(theta);
-        starPositions[i + 2] = radius * Math.cos(phi);
+        // Optimize: fewer raindrops per column for better visibility
+        const density = 0.25 + Math.random() * 0.35; // Less density (25-60%)
+        const dropCount = Math.floor(parameters.rows * density * 0.5); // Fewer drops for clarity
+        const columnSpeed = parameters.fallingSpeed * (0.8 + Math.random() * 0.5);
         
-        // Vary star colors between white and slightly blue/yellow
-        const colorChoice = Math.random();
-        if (colorChoice > 0.95) {
-          // Yellow/warm stars (using --neutral)
-          starColors[i] = 1;
-          starColors[i + 1] = 0.8;
-          starColors[i + 2] = 0.4;
-        } else if (colorChoice > 0.9) {
-          // Blueish stars
-          starColors[i] = 0.6;
-          starColors[i + 1] = 0.8;
-          starColors[i + 2] = 1;
-        } else {
-          // White/neutral stars
-          const brightness = 0.5 + Math.random() * 0.5;
-          starColors[i] = brightness;
-          starColors[i + 1] = brightness;
-          starColors[i + 2] = brightness;
+        // Create an array to hold the raindrops in this column
+        const raindrops = [];
+        
+        // Add optimized number of raindrops per column
+        for (let i = 0; i < dropCount; i++) {
+          // Choose from a smaller set of text elements
+          const textIndex = Math.floor(Math.random() * codeElements.length);
+          const text = codeElements[textIndex];
+          
+          // Color distribution - more vibrant colors for better visibility
+          let color;
+          const colorRandom = Math.random();
+          if (colorRandom > 0.85) {
+            // Brighter highlight color
+            color = parameters.highlightColor; // Neutral/Yellow for highlights (15%)
+          } else if (colorRandom > 0.65) {
+            color = parameters.dimColor; // Dimmed coral for variation (20%)
+          } else {
+            // Increase brightness of main color for better visibility
+            color = parameters.mainColor; // Main coral color (65%)
+          }
+          
+          // Create sprite with cached material
+          const spriteMaterial = createDropMaterial(text, color);
+          const sprite = new THREE.Sprite(spriteMaterial);
+          
+          // Position sprite in column with more spacing
+          const rowPos = Math.floor(Math.random() * parameters.rows);
+          sprite.position.y = (rowPos - parameters.rows / 2) * parameters.columnWidth * 1.5;
+          
+          // Reduce z-variation for better batching
+          sprite.position.z = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1 only
+          
+          // Use larger scale for the sprite
+          const scale = parameters.characterSize;
+          sprite.scale.set(scale, scale, scale);
+          
+          // Simplified userData for better performance
+          sprite.userData = {
+            speed: columnSpeed * (0.85 + Math.random() * 0.3),
+            changeTimer: 20 + Math.random() * 40, // Less frequent changes
+            color: color,
+            delay: i * 3,
+            particles: []
+          };
+          
+          columnGroup.add(sprite);
+          
+          // Add trailing particles above each raindrop
+          for (let p = 0; p < parameters.particlesPerDrop; p++) {
+            const particleMaterial = createParticleMaterial(color);
+            const particle = new THREE.Sprite(particleMaterial);
+            
+            // Position particles above the raindrop
+            particle.position.y = sprite.position.y + (p + 1) * parameters.particleSpacing;
+            particle.position.z = sprite.position.z;
+            
+            // Smaller scale for particles
+            particle.scale.set(
+              parameters.particleSize,
+              parameters.particleSize,
+              parameters.particleSize
+            );
+            
+            // Set decreasing opacity for higher particles
+            const opacity = 1 - (p / parameters.particlesPerDrop) * 0.7;
+            particle.material.opacity = opacity;
+            
+            columnGroup.add(particle);
+            sprite.userData.particles.push(particle);
+          }
+          
+          raindrops.push(sprite);
         }
+        
+        scene.add(columnGroup);
+        
+        raindropGroups.push({
+          group: columnGroup,
+          raindrops,
+          speed: columnSpeed
+        });
       }
       
-      starsGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
-      starsGeometry.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
-      
-      const starsMaterial = new THREE.PointsMaterial({
-        size: 0.015,
-        transparent: true,
-        opacity: 0.8,
-        vertexColors: true,
-        blending: THREE.AdditiveBlending,
-        sizeAttenuation: true,
-      });
-      
-      const stars = new THREE.Points(starsGeometry, starsMaterial);
-      scene.add(stars);
-      starsRef.current = stars;
-      
-      return { geometry: starsGeometry, material: starsMaterial, points: stars };
+      raindropGroupsRef.current = raindropGroups;
+      return raindropGroups;
     };
 
-    // Create all scene elements
-    const galaxy = generateGalaxy();
-    const codeSprites = addCodeSprites();
-    const distantStars = addDistantStars();
+    // Create optimized matrix rain
+    const raindrops = createEfficientRaindrops();
 
-    // Handle mouse movement
+    // Throttled mouse handler for better performance
+    let mouseMoveTimeout;
     const handleMouseMove = (event) => {
-      mousePosition.current = {
-        x: (event.clientX / window.innerWidth) * 2 - 1,
-        y: -(event.clientY / window.innerHeight) * 2 + 1
-      };
+      if (mouseMoveTimeout) return; // Skip if already waiting
+      
+      mouseMoveTimeout = setTimeout(() => {
+        mousePosition.current = {
+          x: (event.clientX / window.innerWidth) * 2 - 1,
+          y: -(event.clientY / window.innerHeight) * 2 + 1
+        };
+        mouseMoveTimeout = null;
+      }, 50); // Only update every 50ms
     };
 
     window.addEventListener('mousemove', handleMouseMove);
 
-    // Animation loop
+    // Add camera animation after 5 seconds
+    let cameraAnimated = false;
+    const animateCamera = () => {
+      setTimeout(() => {
+        cameraAnimated = true;
+      }, 3000); // 3 seconds delay
+    };
+    
+    animateCamera();
+
+    // More efficient animation loop
     const clock = new THREE.Clock();
+    let lastUpdateTime = 0;
+    const UPDATE_INTERVAL = 1/30; // 30 fps target for character updates
+    
     const animate = () => {
       const elapsedTime = clock.getElapsedTime();
+      const deltaTime = elapsedTime - lastUpdateTime;
+      
+      // Camera animation (move closer after 3 seconds)
+      if (cameraAnimated && camera.position.z > 2.5) {
+        camera.position.z -= 0.05; // Gradually move camera closer
+        if (camera.position.z <= 2.5) {
+          camera.position.z = 2.5; // Ensure it stops exactly at 2.5
+        }
+      }
 
-      // Rotate galaxy
-      if (galaxyRef.current) {
-        galaxyRef.current.rotation.y = elapsedTime * 0.03;
+      // Tilt entire scene based on mouse position
+      if (cameraAnimated) {
+        const targetRotationX = mousePosition.current.y * 0.2; // Tilt up/down based on mouse Y
+        const targetRotationY = mousePosition.current.x * 0.2; // Tilt left/right based on mouse X
         
-        // Subtle movement based on mouse position
-        const targetX = mousePosition.current.x * 0.1;
-        const targetY = mousePosition.current.y * 0.1;
-        galaxyRef.current.rotation.x += (targetY - galaxyRef.current.rotation.x) * 0.01;
-        galaxyRef.current.rotation.z += (targetX - galaxyRef.current.rotation.z) * 0.01;
+        // Smoothly interpolate current rotation to target rotation
+        scene.rotation.x += (targetRotationX - scene.rotation.x) * 0.03;
+        scene.rotation.y += (targetRotationY - scene.rotation.y) * 0.03;
       }
       
-      // Sync code sprites rotation with regular particle galaxy
-      if (codeSpritesRef.current && galaxyRef.current) {
-        codeSpritesRef.current.rotation.copy(galaxyRef.current.rotation);
-      }
-      
-      // Rotate stars very slowly
-      if (starsRef.current) {
-        starsRef.current.rotation.y = elapsedTime * 0.005;
-        starsRef.current.rotation.x = elapsedTime * 0.002;
+      // Only update character positions at fixed intervals
+      if (deltaTime > UPDATE_INTERVAL) {
+        lastUpdateTime = elapsedTime;
+        
+        // Update raindrop positions
+        raindropGroupsRef.current.forEach((column) => {
+          column.raindrops.forEach((raindrop) => {
+            if (raindrop.userData.delay > 0) {
+              raindrop.userData.delay--;
+              return;
+            }
+            
+            // Previous position
+            const prevY = raindrop.position.y;
+            
+            // Move raindrop down
+            raindrop.position.y -= raindrop.userData.speed * deltaTime * 10;
+            
+            // Reset position when out of view
+            if (raindrop.position.y < -parameters.rows / 2 * parameters.columnWidth * 1.5) {
+              raindrop.position.y = parameters.rows / 2 * parameters.columnWidth * 1.5;
+              
+              // Also reset particle positions when raindrop resets
+              raindrop.userData.particles.forEach((particle, index) => {
+                particle.position.y = raindrop.position.y + (index + 1) * parameters.particleSpacing;
+              });
+            } else {
+              // Update trailing particles
+              raindrop.userData.particles.forEach((particle, index) => {
+                // Make particles follow the raindrop with the same speed
+                particle.position.y -= raindrop.userData.speed * deltaTime * 10;
+              });
+            }
+            
+            // Less frequent character changes
+            raindrop.userData.changeTimer -= deltaTime;
+            if (raindrop.userData.changeTimer <= 0) {
+              // Only change about 10% of chars per update for performance
+              if (Math.random() > 0.9) {
+                const textIndex = Math.floor(Math.random() * codeElements.length);
+                const newText = codeElements[textIndex];
+                
+                // Replace sprite material with new text from cache
+                raindrop.material.dispose();
+                raindrop.material = createDropMaterial(newText, raindrop.userData.color);
+              }
+              
+              // Reset timer with longer interval for less frequent changes
+              raindrop.userData.changeTimer = 20 + Math.random() * 40;
+            }
+          });
+        });
       }
 
-      // Render
+      // Render scene
       renderer.render(scene, camera);
-      requestAnimationFrame(animate);
+      animationFrameRef.current = requestAnimationFrame(animate);
     };
 
+    // Start animation
     animate();
 
-    // Handle window resize
+    // Debounced window resize handler
+    let resizeTimeout;
     const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      if (resizeTimeout) clearTimeout(resizeTimeout);
+      
+      resizeTimeout = setTimeout(() => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }, 100);
     };
 
     window.addEventListener('resize', handleResize);
-
-    // Handle scroll effect - subtle camera movement
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const maxScroll = document.body.scrollHeight - window.innerHeight;
-      const scrollFraction = scrollY / maxScroll;
-      
-      if (cameraRef.current) {
-        cameraRef.current.position.y = -scrollFraction * 2; // Subtle vertical movement
-      }
-    };
     
-    window.addEventListener('scroll', handleScroll);
-
-    // Cleanup
+    // Thorough cleanup
     return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+      
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('scroll', handleScroll);
       
       if (containerRef.current && renderer.domElement) {
         containerRef.current.removeChild(renderer.domElement);
       }
       
-      // Clean up galaxy
-      if (galaxy.geometry) galaxy.geometry.dispose();
-      if (galaxy.material) galaxy.material.dispose();
-      if (galaxy.points) scene.remove(galaxy.points);
-      
-      // Clean up code sprites
-      if (codeSpritesRef.current) {
-        codeSpritesRef.current.traverse((child) => {
-          if (child instanceof THREE.Sprite) {
-            child.material.map.dispose();
-            child.material.dispose();
-          }
+      // Clean up raindrops and materials
+      raindropGroupsRef.current.forEach((column) => {
+        column.raindrops.forEach((raindrop) => {
+          // Clean up particle materials
+          raindrop.userData.particles.forEach(particle => {
+            particle.material.dispose();
+          });
+          
+          raindrop.material.dispose();
         });
-        scene.remove(codeSpritesRef.current);
-      }
+        scene.remove(column.group);
+      });
       
-      // Clean up stars
-      if (distantStars.geometry) distantStars.geometry.dispose();
-      if (distantStars.material) distantStars.material.dispose();
-      if (distantStars.points) scene.remove(distantStars.points);
+      // Clean up texture cache
+      Object.values(textureCache).forEach(texture => {
+        texture.dispose();
+      });
       
       renderer.dispose();
     };
@@ -403,4 +494,4 @@ const GalaxyBackground = () => {
   );
 };
 
-export default GalaxyBackground;
+export default MatrixBackground;
