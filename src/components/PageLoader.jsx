@@ -125,7 +125,7 @@ const PageLoader = ({ isLoading }) => {
               <div className="loader-progress-container" style={{ 
                 width: '100%', 
                 height: '6px', 
-                backgroundColor: '#f0f0f0', 
+                backgroundColor: 'grey', 
                 borderRadius: '3px',
                 overflow: 'hidden'
               }}>
